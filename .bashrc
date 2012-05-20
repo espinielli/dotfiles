@@ -234,7 +234,7 @@ if [ "$UNAME" = Darwin ]; then
         MANPATH="$BREW/share/man:$MANPATH"
 
         # nice little port alias
-        alias brew="sudo nice -n +18 $BREW/bin/brew"
+        alias brew="nice -n +18 $BREW/bin/brew"
     }
 
     # setup java environment. puke.
@@ -252,6 +252,7 @@ fi
 # ALIASES / FUNCTIONS
 # ----------------------------------------------------------------------
 # manage dotfiles
+eval "$(hub alias -s)"
 alias home="git --work-tree=$HOME --git-dir=$HOME/git/dotfiles.git"
 
 # disk usage with human sizes and minimal depth
