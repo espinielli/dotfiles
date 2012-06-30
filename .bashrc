@@ -248,6 +248,8 @@ if [ "$UNAME" = Darwin ]; then
     export JRUBY_HOME
 fi
 
+export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
+
 # ----------------------------------------------------------------------
 # ALIASES / FUNCTIONS
 # ----------------------------------------------------------------------
