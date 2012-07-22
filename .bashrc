@@ -163,6 +163,9 @@ ACK_PAGER_COLOR="$PAGER"
 # ----------------------------------------------------------------------
 # PROMPT
 # ----------------------------------------------------------------------
+source ~/.git-prompt.sh
+
+GIT_BRANCH='$(__git_ps1 " (%s)")'
 
 RED="\[\033[0;31m\]"
 BROWN="\[\033[0;33m\]"
@@ -188,7 +191,7 @@ fi
 
 prompt_simple() {
     unset PROMPT_COMMAND
-    PS1="[\u@\h:\w]\$ "
+    PS1="[\u@\h:\w$GIT_BRANCH]\$ "
     PS2="> "
 }
 
@@ -199,7 +202,7 @@ prompt_compact() {
 }
 
 prompt_color() {
-    PS1="${GREY}[${COLOR1}\u${GREY}@${COLOR2}\h${GREY}:${COLOR1}\W${GREY}]${COLOR2}$P${PS_CLEAR} "
+    PS1="${GREY}[${COLOR1}\u${GREY}@${COLOR2}\h${GREY}:${COLOR1}\W${BLUE}$GIT_BRANCH${GREY}]${COLOR2}$P${PS_CLEAR} "
     PS2="\[[33;1m\]continue \[[0m[1m\]> "
 }
 
@@ -434,8 +437,7 @@ PATH=$(puniq $PATH)
 MANPATH=$(puniq $MANPATH)
 
 # Use the color prompt by default when interactive
-test -n "$PS1" &&
-prompt_color
+test -n "$PS1" && prompt_color
 
 # -------------------------------------------------------------------
 # MOTD / FORTUNE
