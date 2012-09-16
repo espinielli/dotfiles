@@ -1,13 +1,15 @@
 ;; inspired by emacs kicker
 ;; URL: https://github.com/dimitri/emacs-kicker
-;; 
-;; even better follow inspirational work of http://jekor.com/.emacs
+;; inspired by Chris Forno
+;; URL: http://jekor.com/.emacs
+;; inspired by Dimitri Fontaine
+;; URL: https://github.com/dimitri/el-get
 
 
 (require 'cl)                           ; common lisp goodies, loop
 
+;; detect if el-get is already installed and install it if necessary.
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
 (unless (require 'el-get nil t)
   (url-retrieve
    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
@@ -17,34 +19,34 @@
            )
        (goto-char (point-max))
        (eval-print-last-sexp)))))
-
+;; ensures that any currently installed packages will be initialized and
+;; any required packages will be installed.
 (el-get 'sync)
 
 
 ;; now either el-get is `require'd already, or have been `load'ed by the el-get installer.
-
 ;; set local recipes
 (setq
  el-get-sources
  '((:name buffer-move                   ; have to add your own keys
-          :after (lambda ()
+          :after (progn
                    (global-set-key (kbd "<C-S-up>")     'buf-move-up)
                    (global-set-key (kbd "<C-S-down>")   'buf-move-down)
                    (global-set-key (kbd "<C-S-left>")   'buf-move-left)
                    (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
 
    (:name smex                          ; a better (ido like) M-x
-          :after (lambda ()
+          :after (progn
                    (setq smex-save-file "~/.emacs.d/.smex-items")
                    (global-set-key (kbd "M-x") 'smex)
                    (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
 
    (:name magit                         ; git meet emacs, and a binding
-          :after (lambda ()
+          :after (progn
                    (global-set-key (kbd "C-x C-z") 'magit-status)))
 
    (:name goto-last-change              ; move pointer back to last change
-          :after (lambda ()
+          :after (progn
                    ;; when using AZERTY keyboard, consider C-x C-_
                    (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
 
@@ -53,18 +55,17 @@
  my:el-get-packages
  '(el-get                               ; el-get is self-hosting
    escreen                              ; screen for emacs, C-\ C-h
-   ;php-mode-improved                   ; if you're into php...
+;;   php-mode-improved                   ; if you're into php...
    switch-window                        ; takes over C-x o
    auto-complete                        ; complete as you type with overlays
-   zencoding-mode                       ; http://www.emacswiki.org/emacs/ZenCoding
+;;   zencoding-mode                       ; http://www.emacswiki.org/emacs/ZenCoding
    color-theme                          ; nice looking emacs
    color-theme-tango                    ; check out color-theme-blue-mood
    auctex
+   muse
    emacs-goodies-el
    magit
    magithub
-   python-mode
-   python-magic
    ipython
    ))
 
@@ -72,7 +73,6 @@
 ;; Some recipes require extra tools to be installed
 ;;
 ;; Note: el-get-install requires git, so we know we have at least that.
-;;
 (when (el-get-executable-find "cvs")
   (add-to-list 'my:el-get-packages 'emacs-goodies-el)) ; the debian addons for emacs
 
@@ -94,29 +94,35 @@
 (setq inhibit-splash-screen t)          ; no splash screen, thanks
 (line-number-mode 1)                    ; have line numbers and
 (column-number-mode 1)                  ; column numbers in the mode line
+(setq visible-bell t)                   ; no noisy beep, just a visual one
+(tool-bar-mode -1)                      ; no tool bar with icons
+(scroll-bar-mode -1)                    ; no scroll bars
+(unless (string-match "apple-darwin" system-configuration)
+  ;; on mac, there's always a menu bar drawn, don't have it empty
+  (menu-bar-mode -1))
+(global-hl-line-mode -1)                ; do not highlight current line
+(global-linum-mode 1)                   ; add line numbers on the left
+
+(transient-mark-mode 1)                 ; highlight selected region
+(show-paren-mode 1)                     ; parent matching
+(blink-cursor-mode -1)                  ; no blinking cursor
+
 ;; my colors: see color-theme
 ;(set-foreground-color "white")
 ; (set-background-color "RoyalBlue4")
-(color-theme-dark-blue2)
+(color-theme-shaman)
 
 ;; my keybindings
 (global-unset-key "g")
 (global-set-key "g" (quote goto-line))
 (global-set-key (kbd "C-k") 'kill-whole-line)
 
-(tool-bar-mode -1)                      ; no tool bar with icons
-(scroll-bar-mode -1)                    ; no scroll bars
-(unless (string-match "apple-darwin" system-configuration)
-  ;; on mac, there's always a menu bar drown, don't have it empty
-  (menu-bar-mode -1))
-
 ;; choose your own fonts, in a system dependant way
 (if (string-match "apple-darwin" system-configuration)
     (set-face-font 'default "Monaco-13")
   (set-face-font 'default "Monospace-10"))
-
-(global-hl-line-mode -1)                   ; highlight current line
-(global-linum-mode 1)                   ; add line numbers on the left
+(global-font-lock-mode 1)               ; style text, always
+(setq-default show-trailing-whitespace 't)
 
 ;; avoid compiz manager rendering bugs
 (add-to-list 'default-frame-alist '(alpha . 100))
@@ -192,7 +198,3 @@
   (set-frame-parameter nil 'fullscreen
                        (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f1] 'fullscreen)
-
-;; parent matching
-(show-paren-mode t)
-(blink-cursor-mode nil)
