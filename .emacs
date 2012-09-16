@@ -198,3 +198,6 @@
   (set-frame-parameter nil 'fullscreen
                        (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f1] 'fullscreen)
+
+;; python & Co.
+(setq py-mode-map python-mode-map)
