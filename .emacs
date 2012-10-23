@@ -55,18 +55,21 @@
  my:el-get-packages
  '(el-get                               ; el-get is self-hosting
    escreen                              ; screen for emacs, C-\ C-h
-;;   php-mode-improved                   ; if you're into php...
    switch-window                        ; takes over C-x o
    auto-complete                        ; complete as you type with overlays
-;;   zencoding-mode                       ; http://www.emacswiki.org/emacs/ZenCoding
    color-theme                          ; nice looking emacs
-   color-theme-tango                    ; check out color-theme-blue-mood
+   color-theme-solarized                ; check out color-theme-blue-mood
    auctex
    muse
    emacs-goodies-el
    magit
    magithub
    ipython
+   ess
+   ess-smart-underscore
+   json
+   js2-mode
+   nxhtml
    ))
 
 ;;
@@ -110,7 +113,7 @@
 ;; my colors: see color-theme
 ;(set-foreground-color "white")
 ; (set-background-color "RoyalBlue4")
-(color-theme-shaman)
+(color-theme-solarized-dark)
 
 ;; my keybindings
 (global-unset-key "g")
@@ -126,9 +129,6 @@
 
 ;; avoid compiz manager rendering bugs
 (add-to-list 'default-frame-alist '(alpha . 100))
-
-;; copy/paste with C-c and C-v and C-x, check out C-RET too
-(cua-mode)
 
 ;; under mac, have Command as Meta and keep Option for localized input
 (when (string-match "apple-darwin" system-configuration)
@@ -186,7 +186,7 @@
 ;; manager or do M-x kill-emacs.  Don't need a nice shortcut for a once a
 ;; week (or day) action.
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
+;(global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
 (global-set-key (kbd "C-x B") 'ibuffer)
 
 ;; C-x C-j opens dired with the cursor right on the file you're editing
