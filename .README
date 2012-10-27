@@ -1,4 +1,4 @@
-# espin dotfiles #
+# espin Dotfiles #
 Everythin (well almost) is under version control in github.
 
 I use the [detached work tree approach][worktree]
@@ -66,6 +66,19 @@ Now to use (and contribute) from a different machine
 
 Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
 
+# Packages/Options/... #
+## el-get ##
+I finally decided to use [el-get][el-get] to manage my emacs packages.
+
+In my dotfiles repo I only keep
+* <code>.emacs</code> for the outo installation of el-get and my settings
+* <code>.emacs.d/el-get/.status.el</code> for the list of installed recipies/packages
+
+## Solarized ##
+* For Linux I used these [.Xresources][xres]
+* For OSX I followed [these instructions][osxsol]
+
+
 ## References ##
 1. [Detached work tree][worktree] approach.
 2. [Similar installation][worktreeblog].
@@ -78,6 +91,9 @@ Finally properly configure what to ignore, see the ['ignoring' section](#ignorin
 [silas]: http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/
 [scriva]: http://robescriva.com/blog/2009/01/06/manage-your-home-with-git/
 [anotherdotfile]: http://gmarik.info/blog/2010/05/02/tracking-dotfiles-with-git
+[xres]: https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources
+[osxsol]: https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized
+[el-get]: https://github.com/dimitri/el-get
 
 <!---
 Local Variables:
