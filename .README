@@ -70,11 +70,13 @@ Finally properly configure what to ignore, see the ['ignoring' section](#ignorin
 1. [Detached work tree][worktree] approach.
 2. [Similar installation][worktreeblog].
 2. Inspirations about [dot files][dotfiles].
-
+1. I got inspired from [this][silas] and [this][scriva] as well.
 
 [worktree]: http://git-scm.com/2010/04/11/environment.html "detached work tree in git"
 [worktreeblog]: http://sursolid.com/managing-home-dotfiles-with-git-and-github
 [dotfiles]: http://dotfiles.github.com/ "examples of dotfiles"
+[silas]: http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/
+[scriva]: http://robescriva.com/blog/2009/01/06/manage-your-home-with-git/
 
 <!---
 Local Variables:
