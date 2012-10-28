@@ -110,6 +110,28 @@
 (show-paren-mode 1)                     ; parent matching
 (blink-cursor-mode -1)                  ; no blinking cursor
 
+;; frame size settings
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (when (display-graphic-p)
+    (progn
+      ;; use 120 char wide window for largeish displays
+      ;; and smaller 80 column windows for smaller displays
+      ;; pick whatever numbers make sense for you
+      (if (>= (x-display-pixel-width) 1280)
+	  (add-to-list 'default-frame-alist (cons 'width 120))
+	(add-to-list 'default-frame-alist (cons 'width 80)))
+      ;; for the height, subtract a certain amount of pixels
+      ;; from the screen height (for panels, menubars and
+      ;; whatnot), then divide by the height of a char to
+      ;; get the height we want
+      (add-to-list 'default-frame-alist
+		   (cons 'height (/ (- (x-display-pixel-height) 100)
+				    (frame-char-height)))))))
+;; set frame size both for initial frame and for the others
+(add-hook 'after-init-hook            'set-frame-size-according-to-resolution)
+(add-hook 'after-make-frame-functions 'set-frame-size-according-to-resolution)
+
 ;; my colors: see color-theme
 ;(set-foreground-color "white")
 ; (set-background-color "RoyalBlue4")
