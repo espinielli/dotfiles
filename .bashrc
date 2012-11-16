@@ -85,7 +85,7 @@ export SBCL_HOME=/usr/local/lib/sbcl
 PATH=/usr/local/asymptote/bin:$PATH
 
 # nodejs
-PATH=$PATH:/usr/local/node/bin
+PATH=$PATH:$HOME/node_modules/.bin
 
 # arc
 PATH="$PATH:/Applications/Racket-v5.1.1/bin"

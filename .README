@@ -67,6 +67,23 @@ Now to use (and contribute) from a different machine
 Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
 
 # Packages/Options/... #
+Here I keep track of which utilities I like/use
+
+## homebrew ##
+The [package manager for OSX][brew].
+
+## Mercurial ##
+I used it for pycalcal on Google code but I recently moved all to Github...not sure I need it anymore.
+(in /usr/local)
+
+## noweb ##
+I use/love it, but I dream of writing an engine myself.
+(in /usr/local/noweb)
+
+## Steel Bank Common Lisp ##
+Used to check calendrical calculations outcome and that of pycalcal.
+Installed via brew...almost
+
 ## el-get ##
 I finally decided to use [el-get][el-get] to manage my emacs packages.
 
@@ -78,12 +95,16 @@ In my dotfiles repo I only keep
 * For Linux I used these [.Xresources][xres]
 * For OSX I followed [these instructions][osxsol]
 
+## Shocco ##
+* [shocco][shocco] allows to properly document you shell scripts.
+
 
 ## References ##
 1. [Detached work tree][worktree] approach.
 2. [Similar installation][worktreeblog].
 2. Inspirations about [dot files][dotfiles].
 1. I got inspired from [this][silas] and [this][scriva] and [this][anotherdotfile] as well.
+
 
 [worktree]: http://git-scm.com/2010/04/11/environment.html "detached work tree in git"
 [worktreeblog]: http://sursolid.com/managing-home-dotfiles-with-git-and-github
@@ -94,7 +115,8 @@ In my dotfiles repo I only keep
 [xres]: https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources
 [osxsol]: https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized
 [el-get]: https://github.com/dimitri/el-get
-
+[shocco]: https://github.com/rtomayko/shocco "literate-programming doc generator POSIX shell"
+[brew]: http://mxcl.github.com/homebrew/ "homebrew"
 <!---
 Local Variables:
 mode: markdown
