@@ -1,0 +1,125 @@
+# espin Dotfiles #
+Everythin (well almost) is under version control in github.
+
+I use the [detached work tree approach][worktree]
+whereby I keep my GIT repo away from my HOME directory.
+
+<a id="ignoring">
+## ignoring ##
+The following is expecially needed for a dotfiles repo
+
+* setup what to ignore:
+
+        $ cd $HOME
+        $ cat <<EOF
+        # ignore all by default
+        /*
+        # do not ignore:
+        !bin/
+        !.vim
+        EOF > .gitignore_global
+
+* and add it to the global git config in $HOME
+
+        $ git config --global core.excludesfile ~/.gitignore_global
+
+
+## Initial Setup: put your dotfiles under git ##
+I got inspired by [this post][worktreeblog] and this is how I did it:
+
+* create your git repo
+
+        cd $HOME/git
+        $ mkdir dotfiles.git
+
+* make an alias, <kbd>home</kbd>, to manage this special repo
+
+        $ echo "alias home='git--git-dir=$HOME/git/dotfiles.git/ -work-tree=$HOME'" >> .bashrc
+        $ source .bashrc
+
+* init the repo and start adding dotfiles
+
+        $ home init
+        $ home add .bash_profile .bashrc .bash_aliases
+        $ home commit -m 'Initial commit'
+        $ home remote add origin git@github.com:espinielli/dotfiles.git
+        $ home push origin master
+
+
+## set it up on a second/third/... machine ##
+Now to use (and contribute) from a different machine
+
+* backup your existing dot files
+* clone the repo
+
+        $ cd ~/git
+        $ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
+
+* move git repo configuration info in ~/git
+
+        $ mv /tmp/dotfiles.git/.git $HOME/git/dotfiles.git/
+
+* enable dotglob and copy the dot files to home
+
+        $ shopt -s dotglob
+        $ mv -i /tmp/dotfiles.git/* $HOME
+
+Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
+
+# Packages/Options/... #
+Here I keep track of which utilities I like/use
+
+## homebrew ##
+The [package manager for OSX][brew].
+
+## Mercurial ##
+I used it for pycalcal on Google code but I recently moved all to Github...not sure I need it anymore.
+(in /usr/local)
+
+## noweb ##
+I use/love it, but I dream of writing an engine myself.
+(in /usr/local/noweb)
+
+## Steel Bank Common Lisp ##
+Used to check calendrical calculations outcome and that of pycalcal.
+Installed via brew...almost
+
+## el-get ##
+I finally decided to use [el-get][el-get] to manage my emacs packages.
+
+In my dotfiles repo I only keep
+* <code>.emacs</code> for the outo installation of el-get and my settings
+* <code>.emacs.d/el-get/.status.el</code> for the list of installed recipies/packages
+
+## Solarized ##
+* For Linux I used these [.Xresources][xres]
+* For OSX I followed [these instructions][osxsol]
+
+## Shocco ##
+* [shocco][shocco] allows to properly document you shell scripts.
+
+
+## References ##
+1. [Detached work tree][worktree] approach.
+2. [Similar installation][worktreeblog].
+2. Inspirations about [dot files][dotfiles].
+1. I got inspired from [this][silas] and [this][scriva] and [this][anotherdotfile] as well.
+
+
+[worktree]: http://git-scm.com/2010/04/11/environment.html "detached work tree in git"
+[worktreeblog]: http://sursolid.com/managing-home-dotfiles-with-git-and-github
+[dotfiles]: http://dotfiles.github.com/ "examples of dotfiles"
+[silas]: http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/
+[scriva]: http://robescriva.com/blog/2009/01/06/manage-your-home-with-git/
+[anotherdotfile]: http://gmarik.info/blog/2010/05/02/tracking-dotfiles-with-git
+[xres]: https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources
+[osxsol]: https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized
+[el-get]: https://github.com/dimitri/el-get
+[shocco]: https://github.com/rtomayko/shocco "literate-programming doc generator POSIX shell"
+[brew]: http://mxcl.github.com/homebrew/ "homebrew"
+<!---
+Local Variables:
+mode: markdown
+mode: gfm
+end:
+-->

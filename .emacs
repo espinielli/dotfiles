@@ -9,19 +9,19 @@
 (require 'cl)                           ; common lisp goodies, loop
 
 ;; detect if el-get is already installed and install it if necessary.
+;; user master branch
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (let (
-           el-get-master-branch   ;; refer the 'master' (i.e. development) branch
-           )
-       (goto-char (point-max))
-       (eval-print-last-sexp)))))
-;; ensures that any currently installed packages will be initialized and
-;; any required packages will be installed.
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+
 (el-get 'sync)
+
 
 
 ;; now either el-get is `require'd already, or have been `load'ed by the el-get installer.
@@ -55,18 +55,21 @@
  my:el-get-packages
  '(el-get                               ; el-get is self-hosting
    escreen                              ; screen for emacs, C-\ C-h
-;;   php-mode-improved                   ; if you're into php...
    switch-window                        ; takes over C-x o
    auto-complete                        ; complete as you type with overlays
-;;   zencoding-mode                       ; http://www.emacswiki.org/emacs/ZenCoding
    color-theme                          ; nice looking emacs
-   color-theme-tango                    ; check out color-theme-blue-mood
+   color-theme-solarized                ; check out color-theme-blue-mood
    auctex
    muse
    emacs-goodies-el
    magit
    magithub
    ipython
+   ess
+   ess-smart-underscore
+   json
+   js2-mode
+   nxhtml
    ))
 
 ;;
@@ -107,10 +110,32 @@
 (show-paren-mode 1)                     ; parent matching
 (blink-cursor-mode -1)                  ; no blinking cursor
 
+;; frame size settings
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (when (display-graphic-p)
+    (progn
+      ;; use 120 char wide window for largeish displays
+      ;; and smaller 80 column windows for smaller displays
+      ;; pick whatever numbers make sense for you
+      (if (>= (x-display-pixel-width) 1280)
+	  (add-to-list 'default-frame-alist (cons 'width 120))
+	(add-to-list 'default-frame-alist (cons 'width 80)))
+      ;; for the height, subtract a certain amount of pixels
+      ;; from the screen height (for panels, menubars and
+      ;; whatnot), then divide by the height of a char to
+      ;; get the height we want
+      (add-to-list 'default-frame-alist
+		   (cons 'height (/ (- (x-display-pixel-height) 100)
+				    (frame-char-height)))))))
+;; set frame size both for initial frame and for the others
+(add-hook 'after-init-hook            'set-frame-size-according-to-resolution)
+(add-hook 'after-make-frame-functions 'set-frame-size-according-to-resolution)
+
 ;; my colors: see color-theme
 ;(set-foreground-color "white")
 ; (set-background-color "RoyalBlue4")
-(color-theme-shaman)
+(color-theme-solarized-dark)
 
 ;; my keybindings
 (global-unset-key "g")
@@ -126,9 +151,6 @@
 
 ;; avoid compiz manager rendering bugs
 (add-to-list 'default-frame-alist '(alpha . 100))
-
-;; copy/paste with C-c and C-v and C-x, check out C-RET too
-(cua-mode)
 
 ;; under mac, have Command as Meta and keep Option for localized input
 (when (string-match "apple-darwin" system-configuration)
@@ -186,7 +208,7 @@
 ;; manager or do M-x kill-emacs.  Don't need a nice shortcut for a once a
 ;; week (or day) action.
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
+;(global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
 (global-set-key (kbd "C-x B") 'ibuffer)
 
 ;; C-x C-j opens dired with the cursor right on the file you're editing
@@ -201,3 +223,10 @@
 
 ;; python & Co.
 (setq py-mode-map python-mode-map)
+
+;; backup files & Co.
+(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))

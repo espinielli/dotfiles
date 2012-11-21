@@ -85,7 +85,7 @@ export SBCL_HOME=/usr/local/lib/sbcl
 PATH=/usr/local/asymptote/bin:$PATH
 
 # nodejs
-PATH=$PATH:/usr/local/node/bin
+PATH=$PATH:$HOME/node_modules/.bin
 
 # arc
 PATH="$PATH:/Applications/Racket-v5.1.1/bin"
@@ -184,7 +184,7 @@ elif hostname | grep -q 'github\.com'; then
     COLOR2="\[\e[0;92m\]"
     P="\$"
 else
-    COLOR1="${GREY}"
+    COLOR1="${BLUE}"
     COLOR2="${BROWN}"
     P="\$"
 fi
@@ -202,7 +202,7 @@ prompt_compact() {
 }
 
 prompt_color() {
-    PS1="${GREY}[${COLOR1}\u${GREY}@${COLOR2}\h${GREY}:${COLOR1}\W${BROWN}$GIT_BRANCH${GREY}]${COLOR2}$P${PS_CLEAR} "
+    PS1="${BLUE}[${COLOR1}\u${BLUE}@${COLOR2}\h${BLUE}:${COLOR1}\W${BROWN}$GIT_BRANCH${BLUE}]${COLOR2}$P${PS_CLEAR} "
     PS2="\[[33;1m\]continue \[[0m[1m\]> "
 }
 
