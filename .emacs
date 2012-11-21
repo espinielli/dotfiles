@@ -57,6 +57,8 @@
    escreen                              ; screen for emacs, C-\ C-h
    switch-window                        ; takes over C-x o
    auto-complete                        ; complete as you type with overlays
+   auto-complete-yasnippet
+   js-comint
    color-theme                          ; nice looking emacs
    color-theme-solarized                ; check out color-theme-blue-mood
    auctex
@@ -230,3 +232,75 @@
 (setq backup-directory-alist (list (cons ".*" backup-dir)))
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+
+;; ac-complete settings
+;;;;;;;;;;;;;;;;;;;;;;;;
+; Load the default configuration
+(require 'auto-complete-config)
+; Use dictionaries by default
+(setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
+(global-auto-complete-mode t)
+; Start auto-completion after 2 characters of a word
+(setq ac-auto-start 2)
+; case sensitivity is important when finding matches
+(setq ac-ignore-case nil)
+
+
+;; yasnippet
+;;;;;;;;;;;;;
+;; Load the library
+(require 'yasnippet)
+
+(yas-global-mode 1)
+;; per buffer yas-minor-mode (comment out yas-global-mode)
+(yas-reload-all)
+(add-hook 'javascript-mode-hook
+          '(lambda ()
+             (yas-minor-mode)))
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (yas-minor-mode)))
+
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+(setq js2-mode-hook
+  '(lambda () (progn
+    (set-variable 'indent-tabs-mode nil)
+    (setq tab-width 3))))
+
+;; js-comint
+;;;;;;;;;;;;
+(require 'js-comint)
+;; Use node as our repl
+(setq inferior-js-program-command "node")
+(add-hook 'js2-mode-hook '(lambda ()
+			    (local-set-key "\C-x\C-e" 'js-send-last-sexp)
+			    (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
+			    (local-set-key "\C-cb" 'js-send-buffer)
+			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
+			    (local-set-key "\C-cl" 'js-load-file-and-go)
+			    ))
+
+(setq inferior-js-mode-hook
+      (lambda ()
+        ;; We like nice colors
+        (ansi-color-for-comint-mode-on)
+        ;; Deal with some prompt nonsense
+        (add-to-list 'comint-preoutput-filter-functions
+                     (lambda (output)
+		       (replace-regexp-in-string ".*1G.*3G"        "> "    output)
+		       )
+		     )
+        (add-to-list 'comint-preoutput-filter-functions
+                     (lambda (output)
+                       (replace-regexp-in-string ".*1G\.\.\..*5G"  "... "  output)
+		       )
+		     )
+	)
+      )
+
+;; SLIME (via quicklisp)
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl --noinform --no-linedit")
