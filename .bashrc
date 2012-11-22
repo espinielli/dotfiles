@@ -45,6 +45,14 @@ ulimit -S -c 0
 # default umask
 umask 0022
 
+# proxy auth in case of need
+test -f ~/.http_proxy &&  . ~/.http_proxy
+
+# special (machine/user specific) setup
+# this is the true one, remove ~/private...
+test -f ~/.config/setupenv && . ~/.config/setupenv
+test -f ~/private/setupenv &&  . ~/private/setupenv
+
 # ----------------------------------------------------------------------
 # PATH
 # ----------------------------------------------------------------------
