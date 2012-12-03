@@ -1,0 +1,38 @@
+LINUX_PRIV=$HOME/local
+
+: ${EMACS_EXEC='/cm/ot/TOOL/GNU.LATEST/build_default_Linux/generated/bin/emacs -q -l ~spi/.emacs.work'}
+
+# this makes hg work correctly, the default UTF-8 does't.
+export LC_CTYPE="en_US.UTF-8"
+MERCURIAL_HOME=$LINUX_PRIV
+PATH=$MERCURIAL_HOME/bin:$PATH
+MANPATH=$MERCURIAL_HOME/man:$MANPATH
+
+NOWEB_HOME=$LINUX_PRIV
+PATH=$NOWEB_HOME/bin:$PATH
+MANPATH=$NOWEB_HOME/man:$MANPATH
+
+
+PATH=/usr/bin:$PATH
+LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+
+
+PATH=.:${LINUX_PRIV}/bin:$PATH
+LD_LIBRARY_PATH=${LINUX_PRIV}/lib:$LD_LIBRARY_PATH
+MANPATH=$MANPATH:${LINUX_PRIV}/man:${LINUX_PRIV}/share/man
+
+# ruby path for npm
+PATH=$HOME/.rvm/bin:$PATH
+
+#PYTHON_HOME=${LINUX_PRIV}
+#PYTHONPATH=$PYTHON_HOME/lib/python2.7/site-packages
+#export PYTHONPATH
+
+
+# clean and export relevant PATH-like vars
+#PATH=$(echo $PATH | ~/spi/bin/rm_path_dup)
+#MANPATH=$(echo $MANPATH | ~/spi/bin/rm_path_dup)
+#LD_LIBRARY_PATH=$(echo $LD_LIBRARY_PATH | ~/spi/bin/rm_path_dup)
+#LIBRARY_PATH=$(echo $LIBRARY_PATH | ~/spi/bin/rm_path_dup)
+
+export PATH MANPATH LIBRARY_PATH LD_LIBRARY_PATH

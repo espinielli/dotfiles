@@ -20,8 +20,7 @@
 # ----------------------------------------------------------------------
 
 # bring in system bashrc
-test -r /etc/bashrc &&
-      . /etc/bashrc
+test -r /etc/bashrc && . /etc/bashrc
 
 # notify of bg job completion immediately
 set -o notify
@@ -50,8 +49,7 @@ test -f ~/.http_proxy &&  . ~/.http_proxy
 
 # special (machine/user specific) setup
 # this is the true one, remove ~/private...
-test -f ~/.config/setupenv && . ~/.config/setupenv
-test -f ~/private/setupenv &&  . ~/private/setupenv
+test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 
 # ----------------------------------------------------------------------
 # PATH
@@ -70,7 +68,9 @@ PATH="$PATH:$HOME/.rvm/bin"
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
 
-
+#### TODO START ##########################
+# this should go in ~/.config/.shenv.roy #
+##########################################
 ANDROID_SDK_HOME=${HOME}/android-sdk-macosx
 export USE_CCACHE=1 # build env for android sources
 PATH=${PATH}:${ANDROID_SDK_HOME}/tools:${ANDROID_SDK_HOME}/platform-tools
@@ -90,7 +90,7 @@ MANPATH=$NOWEB_HOME/man:$MANPATH
 export SBCL_HOME=/usr/local/lib/sbcl
 
 # asymptote
-PATH=/usr/local/asymptote/bin:$PATH
+#PATH=/usr/local/asymptote/bin:$PATH
 
 # nodejs
 PATH=$PATH:$HOME/node_modules/.bin
@@ -98,6 +98,9 @@ PATH=$PATH:$HOME/node_modules/.bin
 # arc
 PATH="$PATH:/Applications/Racket-v5.1.1/bin"
 MANPATH="$MANPATH:/Applications/Racket-v5.1.1/man"
+
+#### TODO END   ##########################
+
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -288,7 +291,8 @@ alias mv='mv -i'
 alias cl=sbcl
 
 ## --- emacs ---
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
+alias emacs=${EMACS_EXEC}
 
 ## --- emacs client ---
 ## adapted from http://philipweaver.blogspot.com/2009/08/emacs-23.html
@@ -437,8 +441,7 @@ man () {
 . rbdev 2>/dev/null || true
 
 # source ~/.shenv now if it exists
-test -r ~/.shenv &&
-. ~/.shenv
+test -r ~/.shenv && . ~/.shenv
 
 # condense PATH entries
 PATH=$(puniq $PATH)
