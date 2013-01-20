@@ -35,12 +35,6 @@
                    (global-set-key (kbd "<C-S-left>")   'buf-move-left)
                    (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
 
-   (:name smex                          ; a better (ido like) M-x
-          :after (progn
-                   (setq smex-save-file "~/.emacs.d/.smex-items")
-                   (global-set-key (kbd "M-x") 'smex)
-                   (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
-
    (:name magit                         ; git meet emacs, and a binding
           :after (progn
                    (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -54,10 +48,8 @@
 (setq
  my:el-get-packages
  '(el-get                               ; el-get is self-hosting
-   escreen                              ; screen for emacs, C-\ C-h
    switch-window                        ; takes over C-x o
    auto-complete                        ; complete as you type with overlays
-   auto-complete-yasnippet
    js-comint
    color-theme                          ; nice looking emacs
    color-theme-solarized                ; check out color-theme-blue-mood
@@ -71,7 +63,7 @@
    ess-smart-underscore
    json
    js2-mode
-   nxhtml
+   multi-web-mode
    ))
 
 ;;
@@ -101,15 +93,21 @@
 (column-number-mode 1)                  ; column numbers in the mode line
 (setq visible-bell t)                   ; no noisy beep, just a visual one
 (tool-bar-mode -1)                      ; no tool bar with icons
-(scroll-bar-mode -1)                    ; no scroll bars
+(scroll-bar-mode t)                     ; yes/no (t/-1) scroll bars
 (unless (string-match "apple-darwin" system-configuration)
   ;; on mac, there's always a menu bar drawn, don't have it empty
   (menu-bar-mode -1))
-(global-hl-line-mode -1)                ; do not highlight current line
+(global-hl-line-mode  t)                ; do/don't (t/-1) highlight current line
 (global-linum-mode 1)                   ; add line numbers on the left
 
 (transient-mark-mode 1)                 ; highlight selected region
+
+;;; paren-match
 (show-paren-mode 1)                     ; parent matching
+;;(setq show-paren-style 'mixed)
+(setq show-paren-style 'parenthesis)
+
+
 (blink-cursor-mode -1)                  ; no blinking cursor
 
 ;; frame size settings
@@ -132,11 +130,9 @@
 				    (frame-char-height)))))))
 ;; set frame size both for initial frame and for the others
 (add-hook 'after-init-hook            'set-frame-size-according-to-resolution)
-(add-hook 'after-make-frame-functions 'set-frame-size-according-to-resolution)
+;;(add-hook 'after-make-frame-functions 'set-frame-size-according-to-resolution)
 
 ;; my colors: see color-theme
-;(set-foreground-color "white")
-; (set-background-color "RoyalBlue4")
 (color-theme-solarized-dark)
 
 ;; my keybindings
@@ -251,12 +247,12 @@
 ;; Load the library
 (require 'yasnippet)
 
-(yas-global-mode 1)
+;;(yas-global-mode 1)
 ;; per buffer yas-minor-mode (comment out yas-global-mode)
-(yas-reload-all)
-(add-hook 'javascript-mode-hook
-          '(lambda ()
-             (yas-minor-mode)))
+;;(yas-reload-all)
+;;(add-hook 'javascript-mode-hook
+;;          '(lambda ()
+;;             (yas-minor-mode)))
 (add-hook 'python-mode-hook
           '(lambda ()
              (yas-minor-mode)))
@@ -267,6 +263,7 @@
 (setq js2-mode-hook
   '(lambda () (progn
     (set-variable 'indent-tabs-mode nil)
+    (set-variable 'js2-bounce-indent-p t)
     (setq tab-width 3))))
 
 ;; js-comint
@@ -280,6 +277,7 @@
 			    (local-set-key "\C-cb" 'js-send-buffer)
 			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
 			    (local-set-key "\C-cl" 'js-load-file-and-go)
+			    (local-set-key [return] 'newline-and-indent)
 			    ))
 
 (setq inferior-js-mode-hook
@@ -300,7 +298,47 @@
 	)
       )
 
+;; multi-web-mode
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+		  (js-mode "<script[^>]*>" "</script>")
+		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+
 ;; SLIME (via quicklisp)
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
 (setq inferior-lisp-program "sbcl --noinform --no-linedit")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js2-basic-offset 2))
+
+;; pare-match and color
+(require 'paren)
+(set-face-background 'show-paren-match-face (face-background 'default))
+(set-face-foreground 'show-paren-match-face "#859900")
+(set-face-attribute 'show-paren-match-face nil :weight 'extra-bold)
+(defadvice show-paren-function
+      (after show-matching-paren-offscreen activate)
+      "If the matching paren is offscreen, show the matching line in the
+        echo area. Has no effect if the character before point is not of
+        the syntax class ')'."
+      (interactive)
+      (if (not (minibuffer-prompt))
+          (let ((matching-text nil))
+            ;; Only call `blink-matching-open' if the character before point
+            ;; is a close parentheses type character. Otherwise, there's not
+            ;; really any point, and `blink-matching-open' would just echo
+            ;; "Mismatched parentheses", which gets really annoying.
+            (if (char-equal (char-syntax (char-before (point))) ?\))
+                (setq matching-text (blink-matching-open)))
+            (if (not (null matching-text))
+                (message matching-text)))))
+

@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-((el-get status "required" recipe nil)
- (psvn status "installed" recipe
-       (:name psvn :description "Subversion interface for emacs" :type http :url "http://www.xsteve.at/prg/emacs/psvn.el"))
-=======
 ((auctex status "installed" recipe
 	 (:name auctex :website "http://www.gnu.org/software/auctex/" :description "AUCTeX is an extensible package for writing and formatting TeX files in GNU Emacs and XEmacs. It supports many different TeX macro packages, including AMS-TeX, LaTeX, Texinfo, ConTeXt, and docTeX (dtx files)." :type cvs :module "auctex" :url ":pserver:anonymous@cvs.sv.gnu.org:/sources/auctex" :build
 		`(("./autogen.sh")
@@ -16,9 +11,7 @@
  (auto-complete status "installed" recipe
 		(:name auto-complete :website "http://cx4a.org/software/auto-complete/" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
 		       (popup fuzzy)))
- (auto-complete-yasnippet status "installed" recipe
-			  (:name auto-complete-yasnippet :description "Auto-complete sources for YASnippet" :type http :url "http://www.cx4a.org/pub/auto-complete-yasnippet.el" :depends
-				 (auto-complete yasnippet)))
+ (auto-complete-yasnippet status "removed" recipe nil)
  (buffer-move status "installed" recipe
 	      (:name buffer-move :description "Swap buffers without typing C-x b on each window" :type emacswiki :features buffer-move :after
 		     (progn
@@ -41,18 +34,14 @@
 		     (progn
 		       (color-theme-initialize)
 		       (setq color-theme-is-global t))))
- (color-theme-sanityinc status "removed" recipe nil)
  (color-theme-solarized status "installed" recipe
 			(:name color-theme-solarized :description "Emacs highlighting using Ethan Schoonover's Solarized color scheme" :type github :pkgname "sellout/emacs-color-theme-solarized" :depends color-theme :prepare
 			       (progn
 				 (add-to-list 'custom-theme-load-path default-directory)
 				 (autoload 'color-theme-solarized-light "color-theme-solarized" "color-theme: solarized-light" t)
 				 (autoload 'color-theme-solarized-dark "color-theme-solarized" "color-theme: solarized-dark" t))))
- (color-theme-tango status "installed" recipe
-		    (:name color-theme-tango :description "Color theme based on Tango Palette. Created by danranx@gmail.com" :type emacswiki :depends color-theme :prepare
-			   (autoload 'color-theme-tango "color-theme-tango" "color-theme: tango" t)))
  (el-get status "installed" recipe
-	 (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "4.stable" :pkgname "dimitri/el-get" :features el-get :info "." :load "el-get.el"))
+	 (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "4.stable" :pkgname "dimitri/el-get" :info "." :load "el-get.el"))
  (emacs-goodies-el status "installed" recipe
 		   (:name emacs-goodies-el :website "http://packages.debian.org/sid/emacs-goodies-el" :description "Miscellaneous add-ons for Emacs" :type http-tar :url "http://alioth.debian.org/snapshots.php?group_id=30060" :options
 			  ("xzf")
@@ -135,9 +124,7 @@
 				(when value
 				  (vm-bogofilter-setup)))
 			      :load 'vm-bogofilter :group 'vm :group 'vm-bogofilter :group 'vm-bonus-el))))
- (escreen status "installed" recipe
-	  (:name escreen :description "Emacs window session manager" :type http :url "http://www.splode.com/~friedman/software/emacs-lisp/src/escreen.el" :prepare
-		 (autoload 'escreen-install "escreen" nil t)))
+ (escreen status "removed" recipe nil)
  (ess status "installed" recipe
       (:name ess :description "Emacs Speaks Statistics: statistical programming within Emacs" :type svn :url "https://svn.r-project.org/ESS/trunk/" :info "doc/info/" :build `,(mapcar
 																						(lambda
@@ -172,6 +159,9 @@
 	       ("50magit")
 	       :build
 	       (("make" "all"))
+	       :build/berkeley-unix
+	       (("touch" "`find . -name Makefile`")
+		("gmake"))
 	       :build/darwin
 	       `(("make" ,(format "EMACS=%s" el-get-emacs)
 		  "all"))
@@ -181,30 +171,22 @@
 		  (kbd "C-x C-z")
 		  'magit-status))))
  (magithub status "installed" recipe
-	   (:name magithub :description "Magit extensions for using GitHub" :type github :username "nex3" :depends magit))
- (markdown-mode status "installed" recipe
-		(:name markdown-mode :description "Major mode to edit Markdown files in Emacs" :type git :url "git://jblevins.org/git/markdown-mode.git" :before
-		       (add-to-list 'auto-mode-alist
-				    '("\\.\\(md\\|mdown\\|markdown\\)\\'" . markdown-mode))))
- (markup-faces status "installed" recipe
-	       (:name markup-faces :description "Collection of faces for markup language modes." :type github :pkgname "sensorflo/markup-faces"))
+	   (:name magithub :description "Magit extensions for using GitHub" :type github :pkgname "nex3/magithub" :depends magit))
+ (multi-web-mode status "installed" recipe
+		 (:name "multi-web-mode" :description "Multi Web Mode is a minor mode which makes web editing in Emacs much easier" :type github :pkgname "fgallina/multi-web-mode"))
  (muse status "installed" recipe
        (:name muse :description "An authoring and publishing tool for Emacs" :type github :pkgname "alexott/muse" :load-path
 	      ("./lisp")
 	      :build
 	      `(,(concat "make EMACS=" el-get-emacs))
 	      :indo "texi" :autoloads "muse-autoloads"))
- (nxhtml status "installed" recipe
-	 (:type github :username "emacsmirror" :name nxhtml :type emacsmirror :description "An addon for Emacs mainly for web development." :build
-		(list
-		 (concat el-get-emacs " -batch -q -no-site-file -L . -l nxhtmlmaint.el -f nxhtmlmaint-start-byte-compilation"))
-		:load "autostart.el"))
+ (nxhtml status "removed" recipe nil)
  (popup status "installed" recipe
 	(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :pkgname "auto-complete/popup-el"))
  (psvn status "installed" recipe
        (:name psvn :description "Subversion interface for emacs" :type http :url "http://www.xsteve.at/prg/emacs/psvn.el"))
  (python-mode status "installed" recipe
-	      (:type github :username "emacsmirror" :name python-mode :type emacsmirror :description "Major mode for editing Python programs" :features
+	      (:type github :pkgname "emacsmirror/python-mode" :name python-mode :type emacsmirror :description "Major mode for editing Python programs" :features
 		     (python-mode doctest-mode)
 		     :compile nil :load "test/doctest-mode.el" :prepare
 		     (progn
@@ -213,21 +195,9 @@
 				    '("\\.py$" . python-mode))
 		       (add-to-list 'interpreter-mode-alist
 				    '("python" . python-mode)))))
- (smex status "installed" recipe
-       (:name smex :description "M-x interface with Ido-style fuzzy matching." :type github :pkgname "nonsequitur/smex" :features smex :post-init
-	      (smex-initialize)
-	      :after
-	      (progn
-		(setq smex-save-file "~/.emacs.d/.smex-items")
-		(global-set-key
-		 (kbd "M-x")
-		 'smex)
-		(global-set-key
-		 (kbd "M-X")
-		 'smex-major-mode-commands))))
+ (smex status "removed" recipe nil)
  (switch-window status "installed" recipe
 		(:name switch-window :description "A *visual* way to choose a window to switch to" :type github :pkgname "dimitri/switch-window" :features switch-window))
->>>>>>> origin/master
  (yasnippet status "installed" recipe
 	    (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :features "yasnippet" :pre-init
 		   (unless
