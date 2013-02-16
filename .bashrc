@@ -454,12 +454,3 @@ MANPATH=$(puniq $MANPATH)
 
 # Use the color prompt by default when interactive
 test -n "$PS1" && prompt_color
-
-# -------------------------------------------------------------------
-# MOTD / FORTUNE
-# -------------------------------------------------------------------
-
-test -n "$INTERACTIVE" -a -n "$LOGIN" && {
-    uname -npsr
-    uptime
-}
