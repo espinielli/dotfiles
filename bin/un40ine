@@ -1,0 +1,8 @@
+#!/bin/sh
+# un-quarantine files in directory passed as arg.
+
+find -x $1 -type f -print0 | \
+     xargs -0 xattr * | \
+     grep "quarantine" | \
+     cut -d: -f1 | \
+     xargs -I {} xattr -d com.apple.quarantine '{}'
