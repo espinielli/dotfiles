@@ -12,6 +12,11 @@
 ;; user master branch
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
+;;(add-to-list 'load-path "~/elisp")
+;;(autoload 'noweb-mode "noweb" "Editing noweb files." t)
+;;(setq auto-mode-alist (append (list (cons "\\.nw$" 'noweb-mode))
+;;			      auto-mode-alist))
+
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -229,6 +234,12 @@
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
+(require 'ess)
+;; (autoload 'ess-noweb-mode "ess-noweb-mode" "Editing noweb files." t)
+(setq auto-mode-alist (append (list (cons "\\.nw$" 'ess-noweb-mode))
+			      auto-mode-alist))
+
+
 ;; ac-complete settings
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ; Load the default configuration
@@ -263,7 +274,7 @@
 (setq js2-mode-hook
   '(lambda () (progn
     (set-variable 'indent-tabs-mode nil)
-    (set-variable 'js2-bounce-indent-p t)
+    (set-variable 'js2-bounce-indent-p nil)
     (setq tab-width 3))))
 
 ;; js-comint
@@ -277,7 +288,7 @@
 			    (local-set-key "\C-cb" 'js-send-buffer)
 			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
 			    (local-set-key "\C-cl" 'js-load-file-and-go)
-			    (local-set-key [return] 'newline-and-indent)
+;;			    (local-set-key [return] 'newline-and-indent)
 			    ))
 
 (setq inferior-js-mode-hook
@@ -302,12 +313,22 @@
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-		  (js-mode "<script[^>]*>" "</script>")
-		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+		  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+		  (js2-mode "<script[^>]*>" "</script>")
+		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")
+		  (css-mode "<style[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
 
+
+;; ORG
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((js . t)
+   (css . t)
+   (emacs-lisp . nil)
+   ))
 
 ;; SLIME (via quicklisp)
 (load (expand-file-name "~/quicklisp/slime-helper.el"))

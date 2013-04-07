@@ -10,7 +10,7 @@ fi
 
 # tools
 #_EMACSCLIENT=/usr/local/bin/emacsclient
-_EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+_EMACSCLIENT=/usr/local/bin/emacsclient
 _BASENAME=/usr/bin/basename
 _CP=/bin/cp
 _EGREP=/usr/bin/egrep
@@ -37,7 +37,7 @@ else
 fi
 
 # console vs. X
-if [ "${TERM}" = "linux" ]; then
+if [ "${TERM}" = "ansi" ]; then
     unset DISPLAY
     _EMACSCLIENTOPTS="-t"
 else
