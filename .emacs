@@ -10,7 +10,7 @@
 
 ;; detect if el-get is already installed and install it if necessary.
 ;; user master branch
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/el-get/el-get"))
 
 ;;(add-to-list 'load-path "~/elisp")
 ;;(autoload 'noweb-mode "noweb" "Editing noweb files." t)
@@ -21,10 +21,11 @@
   (with-current-buffer
       (url-retrieve-synchronously
        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (let (el-get-master-branch)
+    (let (el-get-master-branch) ;; refer the 'master' (i.e. development) branch
       (goto-char (point-max))
       (eval-print-last-sexp))))
-
+;; ensures that any currently installed packages will be initialized and
+;; any required packages will be installed.
 (el-get 'sync)
 
 
