@@ -2,6 +2,7 @@
 # A basically sane bash environment.
 #
 # Original from Ryan Tomayko <http://tomayko.com/about> (with help from the internets).
+# and https://github.com/mathiasbynens/dotfiles
 # Additions from Enrico Spinielli
 
 # the basics
@@ -15,10 +16,22 @@
 # readline config
 : ${INPUTRC=~/.inputrc}
 
+
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH"
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && source "$file"
+done
+unset file
+
+
 # ----------------------------------------------------------------------
 #  SHELL OPTIONS
 # ----------------------------------------------------------------------
-
 # bring in system bashrc
 test -r /etc/bashrc && . /etc/bashrc
 
@@ -26,17 +39,37 @@ test -r /etc/bashrc && . /etc/bashrc
 set -o notify
 
 # shell opts. see bash(1) for details
+#####################################
+# Autocorrect typos in path names when using `cd`
 shopt -s cdspell >/dev/null 2>&1
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob >/dev/null 2>&1
 shopt -s extglob >/dev/null 2>&1
+
+# Append to the Bash history file, rather than overwriting it
 shopt -s histappend >/dev/null 2>&1
-shopt -s hostcomplete >/dev/null 2>&1
+
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+	shopt -s "$option" 2> /dev/null
+done
+
 shopt -s interactive_comments >/dev/null 2>&1
-shopt -u mailwarn >/dev/null 2>&1
 shopt -s no_empty_cmd_completion >/dev/null 2>&1
 shopt -s checkwinsize >/dev/null 2>&1
 
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+shopt -s hostcomplete >/dev/null 2>&1
+
+
 # fuck that you have new mail shit
 unset MAILCHECK
+shopt -u mailwarn >/dev/null 2>&1
 
 # disable core dumps
 ulimit -S -c 0
@@ -51,61 +84,29 @@ test -f ~/.http_proxy &&  . ~/.http_proxy
 # this is the true one, remove ~/private...
 test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 
+
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+complete -W "NSGlobalDomain" defaults
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
+
+# Autocomplete Grunt commands
+which grunt > /dev/null && eval "$(grunt --completion=bash)"
+
+# If possible, add tab completion for many more commands
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+
 # ----------------------------------------------------------------------
 # PATH
 # ----------------------------------------------------------------------
-
-# we want the various sbins on the path along with /usr/local/bin
-PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
-PATH="/usr/local/bin:$PATH"
-
-MANPATH="/usr/share/man:/usr/local/man:$MANPATH"
-
-# Add RVM to PATH for scripting
-PATH="$PATH:$HOME/.rvm/bin"
-
-# put ~/bin on PATH if you have it
-test -d "$HOME/bin" &&
-PATH="$HOME/bin:$PATH"
-
-#### TODO START ##########################
-# this should go in ~/.config/.shenv.roy #
-##########################################
-ANDROID_SDK_HOME=${HOME}/android-sdk-macosx
-export USE_CCACHE=1 # build env for android sources
-PATH=${PATH}:${ANDROID_SDK_HOME}/tools:${ANDROID_SDK_HOME}/platform-tools
-
-
-# this makes hg work correctly, the default UTF-8 does't.
-export LC_CTYPE="en_US.UTF-8"
-MERCURIAL_HOME=/usr/local
-PATH=$MERCURIAL_HOME/bin:$PATH
-MANPATH=$MERCURIAL_HOME/man:$MANPATH
-
-NOWEB_HOME=/usr/local/noweb
-PATH=$NOWEB_HOME/bin:$PATH
-MANPATH=$NOWEB_HOME/man:$MANPATH
-
-# Steel Bank Common Lisp
-export SBCL_HOME=/usr/local/lib/sbcl
-
-# asymptote
-#PATH=/usr/local/asymptote/bin:$PATH
-
-# nodejs
-PATH=$PATH:$HOME/node_modules/.bin
-
-# arc
-PATH="$PATH:/Applications/Racket-v5.1.1/bin"
-MANPATH="$MANPATH:/Applications/Racket-v5.1.1/man"
-
-#### TODO END   ##########################
+# extra paths are in .path (not in git)
 
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-
 
 
 # ----------------------------------------------------------------------
