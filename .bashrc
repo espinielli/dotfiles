@@ -265,62 +265,6 @@ fi
 
 export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
 
-# ----------------------------------------------------------------------
-# ALIASES / FUNCTIONS
-# ----------------------------------------------------------------------
-# manage dotfiles
-eval "$(hub alias -s)"
-alias home="git --work-tree=$HOME --git-dir=$HOME/git/dotfiles.git"
-
-# disk usage with human sizes and minimal depth
-alias du1='du -h --max-depth=1'
-alias fn='find . -name'
-alias hi='history | tail -20'
-alias h=history
-alias psa='ps auxwww'
-
-alias cls=clear
-alias ..='cd ..'
-alias -- -="cd -"
-
-# safe aliases
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-# shortcuts
-## --- common lisp ---
-alias cl=sbcl
-alias o="open"
-alias oo="open ."
-
-# Gzip-enabled `curl`
-alias gurl="curl --compressed"
-
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update'
-
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-## --- emacs ---
-: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
-alias emacs=${EMACS_EXEC}
-
-## --- emacs client ---
-## adapted from http://philipweaver.blogspot.com/2009/08/emacs-23.html
-# start a windowed frame
-alias ec='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n -c -a /Applications/Emacs.app/Contents/MacOS/Emacs'
-# start a terminal frame
-alias em='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -t -a /Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-# do not start a new frame
-alias ea='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n -a /Applications/Emacs.app/Contents/MacOS/Emacs'
-
 
 
 # ----------------------------------------------------------------------

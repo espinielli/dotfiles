@@ -17,8 +17,6 @@ alias j="jobs"
 alias v="vim"
 alias m="mate ."
 alias s="subl ."
-alias o="open"
-alias oo="open ."
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -133,3 +131,50 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+
+# ----------------------------------------------------------------------
+# ALIASES / FUNCTIONS
+# ----------------------------------------------------------------------
+# manage dotfiles
+eval "$(hub alias -s)"
+alias home="git --work-tree=$HOME --git-dir=$HOME/git/dotfiles.git"
+
+# disk usage with human sizes and minimal depth
+alias du1='du -h --max-depth=1'
+alias fn='find . -name'
+alias hi='history | tail -20'
+alias h=history
+alias psa='ps auxwww'
+
+alias cls=clear
+
+# safe aliases
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# shortcuts
+## --- common lisp ---
+alias cl=sbcl
+alias o="open"
+alias oo="open ."
+
+# Gzip-enabled `curl`
+alias gurl="curl --compressed"
+
+## --- emacs ---
+# if not brew's emacs use
+: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
+#: ${EMACS_EXEC='/usr/local/Cellar/emacs/24.3/bin/emacs'}
+alias emacs=${EMACS_EXEC}
+
+## --- emacs client ---
+## adapted from http://philipweaver.blogspot.com/2009/08/emacs-23.html
+# start a windowed frame
+alias ec='${EMACS_EXEC%/*}/emacsclient -n -c -a ${EMACS_EXEC}'
+# start a terminal frame
+alias em='${EMACS_EXEC%/*}/emacsclient -t -a ${EMACS_EXEC} -nw'
+# do not start a new frame
+alias ea='${EMACS_EXEC%/*}/emacsclient -n -a ${EMACS_EXEC}'
+
