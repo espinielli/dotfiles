@@ -1,4 +1,5 @@
 # Easier navigation: .., ..., ...., ....., ~ and -
+# inspired by https://github.com/mathiasbynens/dotfiles
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
