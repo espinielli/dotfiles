@@ -45,7 +45,7 @@ I got inspired by [this post][worktreeblog] and this is how I did it:
         $ home remote add origin git@github.com:espinielli/dotfiles.git
         $ home push origin master
 
-
+<a id="cloning">
 ## set it up on a second/third/... machine ##
 Now to use (and contribute) from a different machine
 
