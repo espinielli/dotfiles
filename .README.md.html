@@ -1,0 +1,141 @@
+<h1 id="espindotfiles">espin Dotfiles</h1>
+
+<p>Everythin (well almost) is under version control in github.</p>
+
+<p>I use the <a href="http://git-scm.com/2010/04/11/environment.html" title="detached work tree in git">detached work tree approach</a>
+whereby I keep my GIT repo away from my HOME directory.</p>
+
+<p><a id="ignoring"></p>
+
+<h2 id="ignoring">ignoring</h2>
+
+<p>The following is expecially needed for a dotfiles repo</p>
+
+<ul>
+<li><p>setup what to ignore:</p>
+
+<pre><code>$ cd $HOME
+$ cat &lt;&lt;EOF
+# ignore all by default
+/*
+# do not ignore:
+!bin/
+!.vim
+EOF &gt; .gitignore_global
+</code></pre></li>
+<li><p>and add it to the global git config in $HOME</p>
+
+<pre><code>$ git config --global core.excludesfile ~/.gitignore_global
+</code></pre></li>
+</ul>
+
+<h2 id="initialsetup:putyourdotfilesundergit">Initial Setup: put your dotfiles under git</h2>
+
+<p>I got inspired by <a href="http://sursolid.com/managing-home-dotfiles-with-git-and-github">this post</a> and this is how I did it:</p>
+
+<ul>
+<li><p>create your git repo</p>
+
+<pre><code>cd $HOME/git
+$ mkdir dotfiles.git
+</code></pre></li>
+<li><p>make an alias, <kbd>home</kbd>, to manage this special repo</p>
+
+<pre><code>$ echo &quot;alias home='git--git-dir=$HOME/git/dotfiles.git/ -work-tree=$HOME'&quot; &gt;&gt; .bashrc
+$ source .bashrc
+</code></pre></li>
+<li><p>init the repo and start adding dotfiles</p>
+
+<pre><code>$ home init
+$ home add .bash_profile .bashrc .bash_aliases
+$ home commit -m 'Initial commit'
+$ home remote add origin git@github.com:espinielli/dotfiles.git
+$ home push origin master
+</code></pre></li>
+</ul>
+
+<p><a id="cloning"></p>
+
+<h2 id="setituponasecondthirdmachine">set it up on a second/third/&#8230; machine</h2>
+
+<p>Now to use (and contribute) from a different machine</p>
+
+<ul>
+<li><p>backup your existing dot files</p></li>
+<li><p>clone the repo</p>
+
+<pre><code>$ cd ~/git
+$ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
+</code></pre></li>
+<li><p>move git repo configuration info in ~/git</p>
+
+<pre><code>$ mv /tmp/dotfiles.git/.git $HOME/git/dotfiles.git/
+</code></pre></li>
+<li><p>enable dotglob and copy the dot files to home</p>
+
+<pre><code>$ shopt -s dotglob
+$ mv -i /tmp/dotfiles.git/* $HOME
+</code></pre></li>
+</ul>
+
+<p>Finally properly configure what to ignore, see the <a href="#ignoring">&#8216;ignoring&#8217; section</a> above.</p>
+
+<h1 id="packagesoptions">Packages/Options/&#8230;</h1>
+
+<p>Here I keep track of which utilities I like/use</p>
+
+<h2 id="homebrew">homebrew</h2>
+
+<p>The <a href="http://mxcl.github.com/homebrew/" title="homebrew">package manager for OSX</a>.</p>
+
+<h2 id="mercurial">Mercurial</h2>
+
+<p>I used it for pycalcal on Google code but I recently moved all to Github&#8230;not sure I need it anymore.
+(in /usr/local)</p>
+
+<h2 id="noweb">noweb</h2>
+
+<p>I use/love it, but I dream of writing an engine myself.
+(in /usr/local/noweb)</p>
+
+<h2 id="steelbankcommonlisp">Steel Bank Common Lisp</h2>
+
+<p>Used to check calendrical calculations outcome and that of pycalcal.
+Installed via brew&#8230;almost</p>
+
+<h2 id="el-get">el-get</h2>
+
+<p>I finally decided to use <a href="https://github.com/dimitri/el-get">el-get</a> to manage my emacs packages.</p>
+
+<p>In my dotfiles repo I only keep
+* <code>.emacs</code> for the outo installation of el-get and my settings
+* <code>.emacs.d/el-get/.status.el</code> for the list of installed recipies/packages</p>
+
+<h2 id="solarized">Solarized</h2>
+
+<ul>
+<li>For Linux I used these <a href="https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources">.Xresources</a></li>
+<li>For OSX I followed <a href="https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized">these instructions</a></li>
+</ul>
+
+<h2 id="shocco">Shocco</h2>
+
+<ul>
+<li><a href="https://github.com/rtomayko/shocco" title="literate-programming doc generator POSIX shell">shocco</a> allows to properly document you shell scripts.</li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ol>
+<li><a href="http://git-scm.com/2010/04/11/environment.html" title="detached work tree in git">Detached work tree</a> approach.</li>
+<li><a href="http://sursolid.com/managing-home-dotfiles-with-git-and-github">Similar installation</a>.</li>
+<li>Inspirations about <a href="http://dotfiles.github.com/" title="examples of dotfiles">dot files</a>.</li>
+<li>I got inspired from <a href="http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/">this</a> and <a href="http://robescriva.com/blog/2009/01/06/manage-your-home-with-git/">this</a> and <a href="http://gmarik.info/blog/2010/05/02/tracking-dotfiles-with-git">this</a> as well.</li>
+</ol>
+
+<!---
+Local Variables:
+mode: markdown
+mode: gfm
+end:
+-->
