@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# this script installs all my tools and applications.
+# PREREQUISITE: homebrew needs to be already installed
+
+# Make sure we’re using the latest Homebrew
+brew update
+
+# Upgrade any already-installed formulae
+brew upgrade
+
+# Install GNU core utilities (those that come with OS X are outdated)
+brew install coreutils
+echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+brew install findutils
+# Install Bash 4
+brew install bash
+
+# Install wget with IRI support
+brew install wget --enable-iri
+
+# Install RingoJS and Narwhal
+# Note that the order in which these are installed is important; see http://git.io/brew-narwhal-ringo.
+# brew install ringojs
+# brew install narwhal
+
+# Install more recent versions of some OS X tools
+# brew tap homebrew/dupes
+# brew install homebrew/dupes/grep
+# brew tap josegonzalez/homebrew-php
+# brew install php54
+
+# Install other useful binaries
+brew install readline
+brew install xz
+brew install git
+brew install hub
+brew install node
+brew install emacs --cocoa
+brew install noweb
+brew install gdal
+brew install opencv
+
+####################
+#TODO: see brew list to get the other ones!!!!!!!
+####################
+
+# Install native apps
+brew tap phinze/homebrew-cask
+brew install brew-cask
+
+function installcask() {
+	if brew cask info "${@}" | grep "Not installed" > /dev/null; then
+		brew cask install "${@}"
+	else
+		echo "${@} is already installed."
+	fi
+}
+
+installcask adium
+installcask alfred
+installcask arduino
+installcask dropbox
+installcask github
+installcask gitx
+installcask fluid
+installcask google-chrome
+installcask google-chrome-canary
+installcask inkscape
+installcask iterm2
+# installcask gimp
+installcask open-office
+installcask opera
+installcask skype
+installcask spotify
+installcask sublime-text
+installcask tor-browser
+installcask transmission
+installcask brackets
+
+# Remove outdated versions from the cellar
+brew cleanup
