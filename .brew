@@ -33,6 +33,12 @@ brew install wget --enable-iri
 
 # Install other useful binaries
 brew install readline
+brew install python
+brew linkapps
+pip install --upgrade setuptools
+pip install --upgrade pip
+
+
 brew install xz
 brew install git
 brew install hub
@@ -40,11 +46,30 @@ brew install node
 brew install emacs --cocoa
 brew install noweb
 brew install gdal
+brew install gsl # needed by qgis
+brew install sbcl # Lisp is a must!
+brew install google-app-engine
+
+brew tap homebrew/science # python
+pip-2.7 install nose
+brew tap samueljohn/python
+brew install numpy
+brew link numpy
+pip install Shapely
+
 brew install opencv
 
 ####################
 #TODO: see brew list to get the other ones!!!!!!!
 ####################
+
+### npm
+npm install -g topojson
+npm install -g bower
+
+### gems
+gem install gist
+
 
 # Install native apps
 brew tap phinze/homebrew-cask
@@ -75,9 +100,13 @@ installcask opera
 installcask skype
 installcask spotify
 installcask sublime-text
+installcask komodo-edit
 installcask tor-browser
 installcask transmission
 installcask brackets
+installcask adventure
+installcask google-app-engine
+installcask google-earth
 
 # Remove outdated versions from the cellar
 brew cleanup

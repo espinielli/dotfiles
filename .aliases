@@ -1,3 +1,4 @@
+# -*- mode: shell-unix-generic -*-
 # Easier navigation: .., ..., ...., ....., ~ and -
 # inspired by https://github.com/mathiasbynens/dotfiles
 alias ..="cd .."
@@ -16,8 +17,10 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 alias v="vim"
-alias m="mate ."
+alias m="more"
 alias s="subl ."
+alias o="open"
+alias oo="open ."
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -27,13 +30,13 @@ else # OS X `ls`
 fi
 
 # List all files colorized in long format
-alias l="ls -l ${colorflag}"
+alias l="ls -lF ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias la="ls -la ${colorflag}"
+alias la="ls -laF ${colorflag}"
 
 # List only directories
-alias lsd='ls -l ${colorflag} | grep "^d"'
+alias lsd='ls -lF ${colorflag} | grep "^d"'
 
 # Always use color output for `ls`
 alias ls="command ls ${colorflag}"
@@ -128,6 +131,9 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
+# Make Grunt print stack traces by default
+command -v grunt > /dev/null && alias grunt="grunt --stack"
+
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
@@ -158,8 +164,6 @@ alias mv='mv -i'
 # shortcuts
 ## --- common lisp ---
 alias cl=sbcl
-alias o="open"
-alias oo="open ."
 
 # Gzip-enabled `curl`
 alias gurl="curl --compressed"

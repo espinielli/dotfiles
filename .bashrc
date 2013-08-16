@@ -16,12 +16,6 @@
 # readline config
 : ${INPUTRC=~/.inputrc}
 
-
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH"
-
-# npm tools
-export PATH="$PATH:/usr/local/share/npm/bin"
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -145,19 +139,22 @@ FIGNORE="~:CVS:#:.pyc:.swp:.swa:apache-solr-*"
 HISTCONTROL=ignoreboth
 HISTFILESIZE=10000
 HISTSIZE=10000
+# Avoid duplicates in your history
+HISTIGNORE="&:ls:ls *:[bf]g:exit"
+
 
 # ----------------------------------------------------------------------
 # PAGER / EDITOR
 # ----------------------------------------------------------------------
 
 # See what we have to work with ...
+HAVE_SUBLIME=$(command -v subl)
 HAVE_VIM=$(command -v vim)
-HAVE_GVIM=$(command -v gvim)
 
 # EDITOR
-test -n "$HAVE_VIM" &&
-EDITOR=vim ||
-EDITOR=vi
+test -n "$HAVE_SUBLIME" &&
+EDITOR="subl -w" ||
+EDITOR=vim
 export EDITOR
 
 # PAGER
@@ -252,7 +249,15 @@ if [ "$UNAME" = Darwin ]; then
 
         # nice little port alias
         alias brew="nice -n +18 $BREW/bin/brew"
+
+        # python
+        export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
     }
+
+    # gnu coreutils from brew
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 
     # setup java environment. puke.
     JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
@@ -265,7 +270,7 @@ if [ "$UNAME" = Darwin ]; then
     export JRUBY_HOME
 fi
 
-export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
+# export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
 
 
 
