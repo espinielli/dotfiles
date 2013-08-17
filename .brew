@@ -42,6 +42,7 @@ pip install --upgrade pip
 brew install xz
 brew install git
 brew install hub
+brew install git-extras
 brew install node
 brew install emacs --cocoa
 brew install noweb
