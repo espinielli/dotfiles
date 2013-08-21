@@ -59,7 +59,9 @@ shopt -s no_empty_cmd_completion >/dev/null 2>&1
 shopt -s checkwinsize >/dev/null 2>&1
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" \
+    -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" \
+    scp sftp ssh
 shopt -s hostcomplete >/dev/null 2>&1
 
 
@@ -81,6 +83,32 @@ test -f ~/.http_proxy &&  . ~/.http_proxy
 test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 
 
+# ----------------------------------------------------------------------
+# BASH COMPLETION
+# ----------------------------------------------------------------------
+test -z "$BASH_COMPLETION" && {
+    bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
+    test -n "$PS1" && test $bmajor -gt 1 && {
+        # search for a bash_completion file to source
+        for f in /usr/local/etc/bash_completion \
+                 /usr/pkg/etc/bash_completion \
+                 /opt/local/etc/bash_completion \
+                 /etc/bash_completion
+        do
+            test -f $f && {
+                . $f
+                break
+            }
+        done
+    }
+    unset bash bmajor bminor
+}
+
+# override and disable tilde expansion
+_expand() {
+    return 0
+}
+
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
@@ -93,7 +121,13 @@ which grunt > /dev/null && eval "$(grunt --completion=bash)"
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
-
+# completion for git & Co.
+for file in /usr/local/etc/bash_completion.d/git-completion.bash \
+            /usr/local/etc/bash_completion.d/git-extras \
+            /usr/local/etc/bash_completion.d/hub.bash_completion.sh; do
+    [ -r "$file" ] && source "$file"
+done
+unset file
 
 # ----------------------------------------------------------------------
 # PATH
@@ -174,7 +208,8 @@ ACK_PAGER_COLOR="$PAGER"
 # ----------------------------------------------------------------------
 # PROMPT
 # ----------------------------------------------------------------------
-source ~/.git-prompt.sh
+[ -r /usr/local/etc/bash_completion.d/git-prompt.sh ] && \
+    source /usr/local/etc/bash_completion.d/git-prompt.sh  # from brew installed git
 
 GIT_BRANCH='$(__git_ps1 " (%s)")'
 
@@ -272,34 +307,6 @@ fi
 
 # export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
 
-
-
-# ----------------------------------------------------------------------
-# BASH COMPLETION
-# ----------------------------------------------------------------------
-
-test -z "$BASH_COMPLETION" && {
-    bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
-    test -n "$PS1" && test $bmajor -gt 1 && {
-        # search for a bash_completion file to source
-        for f in /usr/local/etc/bash_completion \
-                 /usr/pkg/etc/bash_completion \
-                 /opt/local/etc/bash_completion \
-                 /etc/bash_completion
-        do
-            test -f $f && {
-                . $f
-                break
-            }
-        done
-    }
-    unset bash bmajor bminor
-}
-
-# override and disable tilde expansion
-_expand() {
-    return 0
-}
 
 # ----------------------------------------------------------------------
 # LS AND DIRCOLORS
