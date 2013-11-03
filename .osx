@@ -14,12 +14,15 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-machinename=$(cat $HOME/.hostname)
-machinename=${machinename:-"MacBull Pro"}
-sudo scutil --set ComputerName $machinename
-sudo scutil --set HostName $machinename
-sudo scutil --set LocalHostName ${machinename// /-} # substitute spaces with dashes
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${machinename// /-}
+if [ -f .hostname ]
+then
+	machinename=$(cat $HOME/.hostname)
+	machinename=${machinename:-"MacBull Pro"}
+	sudo scutil --set ComputerName $machinename
+	sudo scutil --set HostName $machinename
+	sudo scutil --set LocalHostName ${machinename// /-} # substitute spaces with dashes
+	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${machinename// /-}
+ fi
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -370,14 +373,14 @@ defaults write com.apple.dock showhidden -bool true
 # 12: Notification Center
 # Top left screen corner → Mission Control
 # tl = [t]op [l]eft; br = [b]ottom [r]ight ...
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-tl-modifier -int 0
+defaults write com.apple.dock wvous-bl-corner -int 2
+defaults write com.apple.dock wvous-bl-modifier -int 0
 # Top right screen corner → Desktop
 defaults write com.apple.dock wvous-tr-corner -int 4
 defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom right screen corner → Start screen saver
+defaults write com.apple.dock wvous-br-corner -int 5
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 ###############################################################################
 # Safari & WebKit                                                             #
