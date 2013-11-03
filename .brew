@@ -67,6 +67,8 @@ brew install opencv
 ### npm
 npm install -g topojson
 npm install -g bower
+npm install -g coffee-script
+npm install -g coffeekup
 
 ### gems
 gem install gist
