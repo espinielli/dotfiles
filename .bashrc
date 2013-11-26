@@ -404,8 +404,8 @@ ppush () { eval "${2:-PATH}='$(eval echo \$${2:-PATH})':$1"; }
 puniq () {
     # use $@ instead of $1 to cater for pathnames containing spaces
     # also separate the various paths with '|' and reflect it in nl, sort and cut
-    echo "$@" |tr : '\n' |nl -s '|' |sort -u -t '|' -k 2,2 |sort -n |
-    cut -f 2- -d '|'|tr '\n' : |sed -e 's/:$//' -e 's/^://'
+    echo "$@" | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://' |tr : '\n' | nl -s '|' | sort -u -t '|' -k 2,2 |sort -n | \
+    cut -f 2- -d '|' | tr '\n' : | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://'
 }
 
 # use gem-man(1) if available:
