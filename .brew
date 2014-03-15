@@ -44,7 +44,6 @@ brew install git
 brew install hub
 brew install git-extras
 brew install node
-brew install emacs --cocoa
 brew install noweb
 brew install gdal
 brew install gsl # needed by qgis
@@ -86,30 +85,14 @@ function installcask() {
 	fi
 }
 
-installcask adium
-installcask alfred
-installcask arduino
-installcask dropbox
-installcask github
-installcask gitx
-installcask fluid
-installcask google-chrome
-installcask google-chrome-canary
-installcask inkscape
-installcask iterm2
-# installcask gimp
-installcask open-office
-installcask opera
-installcask skype
-installcask spotify
-installcask sublime-text
-installcask komodo-edit
-installcask tor-browser
-installcask transmission
-installcask brackets
-installcask adventure
-installcask google-app-engine
-installcask google-earth
+# install all casks listed in ~/.brewcasks
+if [[ -s ~/.brewcasks ]]
+then
+	for p in $(cat ~/.brewcasks)
+	do
+		installcask $p
+	done
+fi
 
 # Remove outdated versions from the cellar
 brew cleanup
