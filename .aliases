@@ -203,3 +203,4 @@ alias em='${EMACS_EXEC%/*}/emacsclient -t -a ${EMACS_EXEC} -nw'
 # do not start a new frame
 alias ea='${EMACS_EXEC%/*}/emacsclient -n -a ${EMACS_EXEC}'
 
+alias marked=/Applications/Marked.app/Contents/MacOS/Marked

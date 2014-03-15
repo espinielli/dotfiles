@@ -13,20 +13,7 @@
 		       (popup fuzzy)))
  (auto-complete-yasnippet status "removed" recipe nil)
  (buffer-move status "installed" recipe
-	      (:name buffer-move :description "Swap buffers without typing C-x b on each window" :type emacswiki :features buffer-move :after
-		     (progn
-		       (global-set-key
-			(kbd "<C-S-up>")
-			'buf-move-up)
-		       (global-set-key
-			(kbd "<C-S-down>")
-			'buf-move-down)
-		       (global-set-key
-			(kbd "<C-S-left>")
-			'buf-move-left)
-		       (global-set-key
-			(kbd "<C-S-right>")
-			'buf-move-right))))
+	      (:name buffer-move :description "Swap buffers without typing C-x b on each window" :type emacswiki :features buffer-move))
  (color-theme status "installed" recipe
 	      (:name color-theme :description "An Emacs-Lisp package with more than 50 color themes for your use. For questions about color-theme" :website "http://www.nongnu.org/color-theme/" :type http-tar :options
 		     ("xzf")
@@ -139,11 +126,7 @@
  (fuzzy status "installed" recipe
 	(:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (goto-last-change status "installed" recipe
-		   (:name goto-last-change :description "Move point through buffer-undo-list positions" :type emacswiki :load "goto-last-change.el" :after
-			  (progn
-			    (global-set-key
-			     (kbd "C-x C-/")
-			     'goto-last-change))))
+		   (:name goto-last-change :description "Move point through buffer-undo-list positions" :type emacswiki :load "goto-last-change.el"))
  (ipython status "installed" recipe
 	  (:name ipython :description "Adds support for IPython to python-mode.el" :type http :url "https://raw.github.com/ipython/ipython/master/docs/emacs/ipython.el" :depends python-mode :features ipython :post-init
 		 (setq py-shell-name "ipython")))
@@ -164,12 +147,7 @@
 		("gmake"))
 	       :build/darwin
 	       `(("make" ,(format "EMACS=%s" el-get-emacs)
-		  "all"))
-	       :after
-	       (progn
-		 (global-set-key
-		  (kbd "C-x C-z")
-		  'magit-status))))
+		  "all"))))
  (magithub status "installed" recipe
 	   (:name magithub :description "Magit extensions for using GitHub" :type github :pkgname "nex3/magithub" :depends magit))
  (multi-web-mode status "installed" recipe
