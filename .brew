@@ -20,43 +20,33 @@ brew install bash
 # Install wget with IRI support
 brew install wget --enable-iri
 
-# Install RingoJS and Narwhal
-# Note that the order in which these are installed is important; see http://git.io/brew-narwhal-ringo.
-# brew install ringojs
-# brew install narwhal
-
-# Install more recent versions of some OS X tools
-# brew tap homebrew/dupes
-# brew install homebrew/dupes/grep
-# brew tap josegonzalez/homebrew-php
-# brew install php54
-
 # Install other useful binaries
 brew install readline
-brew install python
+brew install python # python
+brew tap homebrew/science
+brew tap samueljohn/python # install relevant python packages
+brew install numpy
+brew link numpy
+source ~/.py
+
 brew linkapps
-pip install --upgrade setuptools
-pip install --upgrade pip
 
 
 brew install xz
 brew install git
 brew install hub
 brew install git-extras
+# install node ...
 brew install node
+# ... and npm
+curl https://www.npmjs.org/install.sh | sh
+
 brew install noweb
 brew install gdal
 brew install gsl # needed by qgis
 brew install sbcl # Lisp is a must!
 brew install google-app-engine
 
-brew tap homebrew/science # python
-pip-2.7 install nose
-brew tap samueljohn/python
-brew install numpy
-brew link numpy
-pip install Shapely
-pip install requests
 
 brew install opencv
 
@@ -86,10 +76,10 @@ function installcask() {
 	fi
 }
 
-# install all casks listed in ~/.brewcasks
-if [[ -s ~/.brewcasks ]]
+# install all casks listed in ~/.casks
+if [[ -s ~/.casks ]]
 then
-	for p in $(cat ~/.brewcasks)
+	for p in $(cat ~/.casks)
 	do
 		installcask $p
 	done
