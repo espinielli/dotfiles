@@ -174,7 +174,7 @@ HISTCONTROL=ignoreboth
 HISTFILESIZE=10000
 HISTSIZE=10000
 # Avoid duplicates in your history
-HISTIGNORE="&:ls:ls *:[bf]g:exit"
+HISTIGNORE="&:ls:[bf]g:exit"
 
 
 # ----------------------------------------------------------------------
