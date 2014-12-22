@@ -85,5 +85,7 @@ then
 	done
 fi
 
+wget https://raw.githubusercontent.com/bobthecow/git-flow-completion/master/git-flow-completion.bash -O .git-flow-completion.bash
+
 # Remove outdated versions from the cellar
 brew cleanup

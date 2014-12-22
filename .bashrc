@@ -18,7 +18,8 @@
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
+# * ~/.extra can be used for other settings you don’t want to commit
+#   for example auth key for homebrew github token
 for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && source "$file"
 done
@@ -75,7 +76,7 @@ ulimit -S -c 0
 # default umask
 umask 0022
 
-# proxy auth in case of need
+# proxy auth in case of need (also used for other private pwd / auth keys, i.e. homebrew github token)
 test -f ~/.http_proxy &&  . ~/.http_proxy
 
 # special (machine/user specific) setup
@@ -86,23 +87,10 @@ test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 # ----------------------------------------------------------------------
 # BASH COMPLETION
 # ----------------------------------------------------------------------
-test -z "$BASH_COMPLETION" && {
-    bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
-    test -n "$PS1" && test $bmajor -gt 1 && {
-        # search for a bash_completion file to source
-        for f in /usr/local/etc/bash_completion \
-                 /usr/pkg/etc/bash_completion \
-                 /opt/local/etc/bash_completion \
-                 /etc/bash_completion
-        do
-            test -f $f && {
-                . $f
-                break
-            }
-        done
-    }
-    unset bash bmajor bminor
-}
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+source ~/.git-flow-completion.bash
 
 # override and disable tilde expansion
 _expand() {
@@ -119,8 +107,6 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # Autocomplete Grunt commands
 #which grunt > /dev/null && eval "$(grunt --completion=bash)"
 
-# If possible, add tab completion for many more commands
-[ -f /etc/bash_completion ] && source /etc/bash_completion
 # completion for git & Co.
 for file in /usr/local/etc/bash_completion.d/git-completion.bash \
             /usr/local/etc/bash_completion.d/git-extras \
@@ -255,8 +241,7 @@ prompt_color() {
 # ----------------------------------------------------------------------
 # MACOS X / DARWIN SPECIFIC
 # ----------------------------------------------------------------------
-
-if [ "$UNAME" = Darwin ]; then
+if [ $(uname) = Darwin ]; then
     # put ports on the paths if /opt/local exists
     test -x /opt/local -a ! -L /opt/local && {
         PORTS=/opt/local
@@ -285,13 +270,36 @@ if [ "$UNAME" = Darwin ]; then
         # nice little port alias
         alias brew="nice -n +18 $BREW/bin/brew"
 
+        # gnu coreutils from brew
+        PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+        MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
         # python
-        export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
+#        export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
+#        alias ipython='python /usr/local/bin/ipython'
+
+        # pyenv & Co.
+        if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+        if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+        # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+        # pip should only run if there is a virtualenv currently activated
+        # export PIP_REQUIRE_VIRTUALENV=true
+        # cache pip-installed packages to avoid re-downloading
+        # export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+        # syspip(){
+        #     # turn off virtualenv-only for global installations
+        #     # see http://hackercodex.com/guide/python-development-environment-on-mac-osx/
+        #     PIP_REQUIRE_VIRTUALENV="" pip "$@"
+        # }
+
+        # virtualenv wrapper
+        # export WORKON_HOME=$HOME/.virtualenvs
+        # export PROJECT_HOME=$HOME/Devel
+        # source /usr/local/bin/virtualenvwrapper.sh
     }
 
-    # gnu coreutils from brew
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 
     # setup java environment. puke.
@@ -304,8 +312,6 @@ if [ "$UNAME" = Darwin ]; then
     JRUBY_HOME="/opt/jruby"
     export JRUBY_HOME
 fi
-
-# export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
 
 
 # ----------------------------------------------------------------------
@@ -425,8 +431,8 @@ man () {
 test -r ~/.shenv && . ~/.shenv
 
 # condense PATH entries
-PATH=$(puniq $PATH)
-MANPATH=$(puniq $MANPATH)
+export PATH=$(puniq $PATH)
+export MANPATH=$(puniq $MANPATH)
 
 # Use the color prompt by default when interactive
 test -n "$PS1" && prompt_color

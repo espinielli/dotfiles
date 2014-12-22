@@ -228,3 +228,8 @@ function google {
 		sed 's|/url?q=||; s|&amp||');
 	echo -e "${stream//\%/\x}";
 }
+
+# change tab title
+function tabtitle () {
+    echo -ne "\033]0;"$@"\007"
+}
