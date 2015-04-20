@@ -5,6 +5,10 @@
 # and https://github.com/mathiasbynens/dotfiles
 # Additions from Enrico Spinielli
 
+# do not do anything if not interactive
+[ -z "$PS1" ] && return
+
+
 # the basics
 : ${HOME=~}
 : ${LOGNAME=$(id -un)}
@@ -311,6 +315,14 @@ if [ $(uname) = Darwin ]; then
     test -d /opt/jruby &&
     JRUBY_HOME="/opt/jruby"
     export JRUBY_HOME
+
+    # R setup
+    export RSTUDIO_WHICH_R=/usr/local/bin/r
+
+    # go lang
+    export GOPATH=$HOME/go
+    GOHOME=/usr/local/opt/go/
+    export PATH=$GOPATH/bin:$PATH:$GOHOME/libexec/bin
 fi
 
 
@@ -436,3 +448,7 @@ export MANPATH=$(puniq $MANPATH)
 
 # Use the color prompt by default when interactive
 test -n "$PS1" && prompt_color
+
+
+source ~/.xsh
+

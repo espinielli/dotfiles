@@ -30,6 +30,11 @@ sudo pmset -a standbydelay 86400
 # Login: disable Other account option
 defaults write /Library/Preferences/com.apple.loginwindow SHOWOTHERUSERS_MANAGED -bool FALSE
 
+# Login: disable Guest account option
+defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 

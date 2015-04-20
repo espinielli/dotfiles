@@ -218,13 +218,13 @@ function gi() {
 	eval npm install --save-dev grunt-{"$*"}
 }
 
-# command line google search
-function google {
+# command line google search (use GNU grep, ggrep)
+function cligoogle {
 	Q="$@";
 	GOOG_URL='https://www.google.de/search?tbs=li:1&q=';
 	AGENT="Mozilla/4.0";
 	stream=$(curl -A "$AGENT" -skLm 10 "${GOOG_URL}${Q//\ /+}" |
-		grep -oP '\/url\?q=.+?&amp' |
+		GREP_OPTIONS='' ggrep -oE '\/url\?q=.+?&amp' |
 		sed 's|/url?q=||; s|&amp||');
 	echo -e "${stream//\%/\x}";
 }
