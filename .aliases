@@ -13,6 +13,7 @@ alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
+alias pru="cd ~/git/PRU"
 
 # git aliases from http://tjholowaychuk.com/page/3
 alias gd="git diff | subl"
@@ -72,7 +73,7 @@ alias gurl='curl --compressed'
 alias week='date +%V'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brewup='brew update; brew upgrade; brew cleanup'
+alias brewup='brew update; brew upgrade --all; brew cleanup; brew cask cleanup'
 alias npmup='npm update npm -g; npm update -g'
 alias update='sudo softwareupdate -i -a; brewup; npmup; sudo gem update'
 
@@ -206,3 +207,6 @@ alias em='${EMACS_EXEC%/*}/emacsclient -t -a ${EMACS_EXEC} -nw'
 alias ea='${EMACS_EXEC%/*}/emacsclient -n -a ${EMACS_EXEC}'
 
 alias marked=/Applications/Marked.app/Contents/MacOS/Marked
+
+alias node="env NODE_NO_READLINE=1 rlwrap node"
+alias iojs="env NODE_NO_READLINE=1 rlwrap /usr/local/Cellar/iojs/2.0.1/bin/iojs"
