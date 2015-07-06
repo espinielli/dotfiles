@@ -73,7 +73,7 @@ alias gurl='curl --compressed'
 alias week='date +%V'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brewup='brew update; brew upgrade --all; brew cleanup; brew cask cleanup'
+alias brewup='brew update; brew upgrade brew-cask; brew upgrade --all; brew cleanup; brew cask cleanup'
 alias npmup='npm update npm -g; npm update -g'
 alias update='sudo softwareupdate -i -a; brewup; npmup; sudo gem update'
 
@@ -210,3 +210,10 @@ alias marked=/Applications/Marked.app/Contents/MacOS/Marked
 
 alias node="env NODE_NO_READLINE=1 rlwrap node"
 alias iojs="env NODE_NO_READLINE=1 rlwrap /usr/local/Cellar/iojs/2.0.1/bin/iojs"
+
+## --- work ones
+alias devbuild='bundle exec jekyll build --config _config.yml,_config_dev.yml'
+alias devserve='bundle exec jekyll serve --config _config.yml,_config_dev.yml'
+alias expbuild='bundle exec jekyll build --config _config.yml,_config_dev.yml,_config_exp.yml'
+alias expserve='bundle exec jekyll serve --config _config.yml,_config_dev.yml,_config_exp.yml'
+alias pubbuild='bundle exec jekyll build'

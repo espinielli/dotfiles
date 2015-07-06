@@ -456,4 +456,3 @@ test -n "$PS1" && prompt_color
 
 
 source ~/.xsh
-
