@@ -94,7 +94,6 @@ test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
-source ~/.git-flow-completion.bash
 
 # override and disable tilde expansion
 _expand() {
@@ -114,10 +113,13 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # completion for git & Co.
 for file in /usr/local/etc/bash_completion.d/git-completion.bash \
             /usr/local/etc/bash_completion.d/git-extras \
-            /usr/local/etc/bash_completion.d/hub.bash_completion.sh; do
+            /usr/local/etc/bash_completion.d/hub.bash_completion.sh \
+            ~/.git-flow-completion.bash; do
     [ -r "$file" ] && source "$file"
 done
 unset file
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWSTASHSTATE=true
 
 # ----------------------------------------------------------------------
 # PATH
@@ -335,9 +337,6 @@ fi
 # LS AND DIRCOLORS
 # ----------------------------------------------------------------------
 
-# we always pass these to ls(1)
-LS_COMMON="-hBG"
-
 # if the dircolors utility is available, set that up to
 dircolors="$(type -P gdircolors dircolors | head -1)"
 test -n "$dircolors" && {
@@ -349,14 +348,6 @@ test -n "$dircolors" && {
 }
 unset dircolors
 
-# setup the main ls alias if we've established common args
-test -n "$LS_COMMON" &&
-alias ls="command ls $LS_COMMON"
-
-# these use the ls aliases above
-alias ll="ls -l"
-alias l.="ls -d .*"
-alias la="ls -la"
 
 # --------------------------------------------------------------------
 # MISC ALIASES

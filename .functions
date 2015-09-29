@@ -1,4 +1,31 @@
 # -*- mode: shell-unix-generic -*-
+
+# change dir and ls
+function cd() {
+  if [ $# -gt 0 ]; then
+    builtin cd "$*" && ls
+  else
+    builtin cd && ls
+  fi
+}
+
+# open sublim project for dir or current dir
+function edit() {
+  if [ '(' "$#" -eq 1 ')' -a '(' -d "$1" ')' ]; then
+    local PATTERN="$1/*.sublime-project"
+    local FILES=($PATTERN)
+    if [ -f ${FILES[0]} ]; then
+      subl ${FILES[0]}
+    else
+      subl $@
+    fi
+  elif [ "$#" -eq 0 ]; then
+    edit .
+  else
+    subl $@
+  fi
+}
+
 # Simple calculator
 function calc() {
 	local result=""
