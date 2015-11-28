@@ -3,9 +3,9 @@
 # change dir and ls
 function cd() {
   if [ $# -gt 0 ]; then
-    builtin cd "$*" && ls
+    builtin cd "$*" && ls -F
   else
-    builtin cd && ls
+    builtin cd && ls -F
   fi
 }
 
