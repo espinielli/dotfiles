@@ -8,6 +8,12 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
+# copy last cmd to clipboard, see also cl function
+alias clc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+
+alias trello=trelew
+
+
 # Shortcuts
 alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
@@ -34,6 +40,67 @@ alias gcp="git cherry-pick"
 alias gl="git log --pretty='format:%Cgreen%h%Creset %an - %s' --graph"
 alias gpom="git pull origin master"
 alias gcd='cd "`git rev-parse --show-toplevel`"'
+
+# Git status
+alias gg="git status -sb"
+
+# Git add and remove
+alias ga="git add"
+alias gr="git rm"
+
+# Git branch
+alias gb="git branch -v"
+
+# Git commit
+alias gc="git commit"
+alias gca="git commit --amend"
+alias gcm="git commit -m"
+
+# Git checkout
+alias gcod="git checkout develop"
+alias gcom="git checkout master"
+alias gcos="git checkout staging"
+
+# Git fetch
+alias gf="git fetch"
+alias gfa="git fetch --all"
+
+#Git pull
+alias gp="git pull --rebase"
+alias gprod="git pull --rebase origin develop"
+alias gprom="git pull --rebase origin master"
+alias gpros="git pull --rebase origin staging"
+alias gprud="git pull --rebase upstream develop"
+alias gprum="git pull --rebase upstream master"
+alias gprus="git pull --rebase upstream staging"
+
+#Git push
+alias gpod="git push origin develop"
+alias gpom="git push origin master"
+alias gpos="git push origin staging"
+alias gpud="git push upstream develop"
+alias gpum="git push upstream master"
+alias gpus="git push upstream staging"
+
+#Git rebase
+alias gra="git rebase --abort"
+alias grc="git rebase --continue"
+alias grd="git rebase develop"
+alias gri="git rebase -i"
+alias grm="git rebase master"
+alias grs="git rebase staging"
+
+#Git stash
+alias gsl="git stash list"
+alias gsp="git stash pop"
+alias gss="git stash save"
+
+#Git diff and log
+alias gd="git diff --color-words"
+alias gl="git log --oneline --decorate"
+
+
+
 
 alias h="history"
 alias j="jobs"
@@ -219,6 +286,7 @@ alias marked=/Applications/Marked.app/Contents/MacOS/Marked
 
 alias node="env NODE_NO_READLINE=1 rlwrap node"
 alias iojs="env NODE_NO_READLINE=1 rlwrap /usr/local/Cellar/iojs/2.0.1/bin/iojs"
+alias jscli=mancy
 
 ## --- work ones
 alias devbuild='bundle exec jekyll build --config _config.yml,_config_dev.yml --draft'

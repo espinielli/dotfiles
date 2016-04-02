@@ -260,3 +260,7 @@ function cligoogle {
 function tabtitle () {
     echo -ne "\033]0;"$@"\007"
 }
+
+# copy last command to clipboard, see also clc alias
+cl() { history -p '!!'|tr -d \\n|pbcopy; }
+bind -x '"\C-xc":copyline'

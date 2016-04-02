@@ -9,12 +9,11 @@ if [ ! ${#} -ge 2 ]; then
 fi
 
 # tools
-#_EMACSCLIENT=/usr/local/bin/emacsclient
 _EMACSCLIENT=/usr/local/bin/emacsclient
-_BASENAME=/usr/bin/basename
-_CP=/bin/cp
+_BASENAME=/usr/local/bin/emacsclient
+_CP=/usr/local/opt/coreutils/libexec/gnubin/cp
 _EGREP=/usr/bin/egrep
-_MKTEMP=/usr/bin/mktemp
+_MKTEMP=/usr/local/opt/coreutils/libexec/gnubin/mktemp
 
 # args
 _LOCAL=${1}
@@ -37,11 +36,11 @@ else
 fi
 
 # console vs. X
-if [ "${TERM}" = "ansi" ]; then
+if [ "${TERM}" = "xterm-256color" ]; then
+    _EMACSCLIENTOPTS="-c"
+else
     unset DISPLAY
     _EMACSCLIENTOPTS="-t"
-else
-    _EMACSCLIENTOPTS="-c"
 fi
 
 # run emacsclient

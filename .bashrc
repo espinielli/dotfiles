@@ -91,9 +91,12 @@ test -f ~/.config/.shenv.${HOSTNAME} && . ~/.config/.shenv.${HOSTNAME}
 # ----------------------------------------------------------------------
 # BASH COMPLETION
 # ----------------------------------------------------------------------
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-fi
+# if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#     . $(brew --prefix)/etc/bash_completion
+# fi
+# if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+#     . $(brew --prefix)/share/bash-completion/bash_completion
+# fi
 
 # override and disable tilde expansion
 _expand() {
@@ -447,3 +450,6 @@ test -n "$PS1" && prompt_color
 
 
 source ~/.xsh
+
+# added by travis gem
+[ -f /Users/espin/.travis/travis.sh ] && source /Users/espin/.travis/travis.sh
