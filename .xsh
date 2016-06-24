@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Make the 'xsh' command available in all shells
-export PATH=/Users/$USER/git/xiki/bin:$PATH
+export PATH=/Users/$USER/repos/xiki/bin:$PATH
 
 # Define some key shortcuts for quickly switching from your shell to xsh
 xiki_open_key="\C-x"        # Ctrl+X to expand in xsh
@@ -15,4 +15,4 @@ xiki_tab_key="\e\C-i"       # Esc, Tab to do autocomplete
 # xiki_open_key="\e\C-X"    # Esc, Ctrl+X
 
 # Enable the key shortcuts and the xsh wrapper function
-source /Users/$USER/git/xiki/bin/.xsh
+source /Users/$USER/repos/xiki/bin/.xsh

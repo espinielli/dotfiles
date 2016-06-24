@@ -179,11 +179,13 @@ HISTIGNORE="&:ls:[bf]g:exit"
 # See what we have to work with ...
 HAVE_SUBLIME=$(command -v subl)
 HAVE_VIM=$(command -v vim)
+HAVE_EMACS=$(command -v emacs)
 
 # EDITOR
-test -n "$HAVE_SUBLIME" &&
-EDITOR="subl -w" ||
-EDITOR=vim
+test -n "$HAVE_EMACS" &&
+    EDITOR="emacs" ||
+    EDITOR="subl -w" ||
+        EDITOR=vim
 export EDITOR
 
 # PAGER
@@ -284,12 +286,12 @@ if [ $(uname) = Darwin ]; then
         MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
         # python
-#        export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH"
-#        alias ipython='python /usr/local/bin/ipython'
 
         # pyenv & Co.
+        # export PYENV_ROOT=/usr/local/var/pyenv # use Homebrew's directories rather than ~/.pyenv
         if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
         if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+        # export PYENV_VIRTUALENV_DISABLE_PROMPT=1 # add/remove pyenv prompt
         # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
         # pip should only run if there is a virtualenv currently activated
@@ -302,11 +304,6 @@ if [ $(uname) = Darwin ]; then
         #     # see http://hackercodex.com/guide/python-development-environment-on-mac-osx/
         #     PIP_REQUIRE_VIRTUALENV="" pip "$@"
         # }
-
-        # virtualenv wrapper
-        # export WORKON_HOME=$HOME/.virtualenvs
-        # export PROJECT_HOME=$HOME/Devel
-        # source /usr/local/bin/virtualenvwrapper.sh
     }
 
 
