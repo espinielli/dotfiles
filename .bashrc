@@ -116,6 +116,7 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # completion for git & Co.
 for file in /usr/local/etc/bash_completion.d/git-completion.bash \
             /usr/local/etc/bash_completion.d/git-extras \
+            $(brew --prefix)/etc/bash_completion \
             /usr/local/etc/bash_completion.d/hub.bash_completion.sh \
             ~/.git-flow-completion.bash; do
     [ -r "$file" ] && source "$file"
