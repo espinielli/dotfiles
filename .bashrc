@@ -273,11 +273,11 @@ if [ $(uname) = Darwin ]; then
 
     # put brew on the paths if /usr/local exists
     test -x /usr/local -a ! -L /usr/local && {
-        BREW=/usr/local
+        BREW=$(brew --prefix)
 
         # setup the PATH and MANPATH
         PATH="$BREW/bin:$BREW/sbin:$PATH"
-        MANPATH="$BREW/share/man:$MANPATH"
+        MANPATH="$BREW/share/man:/usr/share/man:/usr/local/share/man:/usr/X11/share/man:$MANPATH"
 
         # nice little port alias
         alias brew="nice -n +18 $BREW/bin/brew"
@@ -326,11 +326,6 @@ if [ $(uname) = Darwin ]; then
     export GOPATH=$HOME/go
     GOHOME=/usr/local/opt/go/
     export PATH=$GOPATH/bin:$PATH:$GOHOME/libexec/bin
-
-    # docker
-    export DOCKER_TLS_VERIFY=1
-    export DOCKER_HOST=tcp://192.168.59.103:2376
-    export DOCKER_CERT_PATH=/Users/espin/.boot2docker/certs/boot2docker-vm
 fi
 
 
