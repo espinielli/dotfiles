@@ -1,9 +1,10 @@
 # Easier navigation: .., ..., ...., ....., ~ and -
 # inspired by https://github.com/mathiasbynens/dotfiles
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
+alias ..1="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
@@ -18,7 +19,7 @@ alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
-alias ww="cd ~/repos/PRU/website/"
+alias www="cd ~/repos/PRU/website/"
 
 # git aliases from http://tjholowaychuk.com/page/3
 alias gd="git diff | subl"
@@ -52,9 +53,10 @@ alias gb="git branch -v"
 
 # Git commit
 alias gc="git commit"
-alias gca="git commit --amend"
+alias gcam="git commit --amend"
 alias gcm="git commit -m"
 
+### --- gitflow --- ###
 # Git checkout
 alias gcod="git checkout develop"
 alias gcom="git checkout master"
@@ -64,7 +66,7 @@ alias gcos="git checkout staging"
 alias gf="git fetch"
 alias gfa="git fetch --all"
 
-#Git pull
+# Git pull
 alias gp="git pull --rebase"
 alias gprod="git pull --rebase origin develop"
 alias gprom="git pull --rebase origin master"
@@ -73,7 +75,7 @@ alias gprud="git pull --rebase upstream develop"
 alias gprum="git pull --rebase upstream master"
 alias gprus="git pull --rebase upstream staging"
 
-#Git push
+# Git push
 alias gpod="git push origin develop"
 alias gpom="git push origin master"
 alias gpos="git push origin staging"
@@ -81,7 +83,7 @@ alias gpud="git push upstream develop"
 alias gpum="git push upstream master"
 alias gpus="git push upstream staging"
 
-#Git rebase
+# Git rebase
 alias gra="git rebase --abort"
 alias grc="git rebase --continue"
 alias grd="git rebase develop"
@@ -89,16 +91,16 @@ alias gri="git rebase -i"
 alias grm="git rebase master"
 alias grs="git rebase staging"
 
-#Git stash
+# Git stash
 alias gsl="git stash list"
 alias gsp="git stash pop"
 alias gss="git stash save"
 
-#Git diff and log
+# Git diff and log
 alias gd="git diff --color-words"
 alias gl="git log --oneline --decorate"
 
-
+### --- --- ###
 
 
 alias h="history"
@@ -262,9 +264,6 @@ alias mv='mv -i'
 # shortcuts
 ## --- common lisp ---
 alias cl=sbcl
-
-# Gzip-enabled `curl`
-alias gurl="curl --compressed"
 
 ## --- emacs ---
 # if not brew's emacs use
