@@ -292,3 +292,4 @@ alias expbuild='JEKYLL_ENV=development bundle exec jekyll build --future --confi
 alias expserve='JEKYLL_ENV=development bundle exec jekyll serve --future --config _config.yml,_config_dev.yml,_config_exp.yml'
 alias pubbuild='JEKYLL_ENV=production bundle exec jekyll build --future'
 
+alias serve='python -m SimpleHTTPServer 8989'
