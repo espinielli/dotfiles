@@ -293,3 +293,9 @@ alias expserve='JEKYLL_ENV=development bundle exec jekyll serve --future --confi
 alias pubbuild='JEKYLL_ENV=production bundle exec jekyll build --future'
 
 alias serve='python -m SimpleHTTPServer 8989'
+
+## --- docker
+alias dok='eval $(docker-machine env default)'
+alias dok-rm-stop='docker rm $(docker ps -a -q)'
+alias dok-rmi-none='docker rmi $(docker images | grep "^<none>" | sed -e "s/[ \t][ \t]*/ /g" | cut -d " " -f 3)'
+alias jek='docker run --rm -v "$PWD:/src" -p 4000:4000 grahamc/jekyll'
