@@ -118,6 +118,20 @@ else # OS X `ls`
 	colorflag="-G"
 fi
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	  ( test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" ) || eval "$(dircolors -b)"
+	  alias ls='ls --color=auto'
+	  alias dir='dir --color=auto'
+	  alias vdir='vdir --color=auto'
+
+	  alias grep='grep --color=auto'
+	  alias fgrep='fgrep --color=auto'
+	  alias egrep='egrep --color=auto'
+fi
+
+
+
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
 
@@ -143,6 +157,15 @@ alias gurl='curl --compressed'
 
 # Get week number
 alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# IP addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias brewup='brew update; brew upgrade --all; brew cleanup; brew cask cleanup'
@@ -226,6 +249,11 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+
 # Make Grunt print stack traces by default
 command -v grunt > /dev/null && alias grunt="grunt --stack"
 
@@ -239,6 +267,10 @@ alias fix_open_with='/System/Library/Frameworks/CoreServices.framework/Versions/
 
 # AWS Connection
 alias connect-aws='ssh -i ~/.ssh/aws-kaw.com-ssh.pem ubuntu@ec2-54-213-99-0.us-west-2.compute.amazonaws.com'
+
+# untar
+alias untar='tar xvf'
+
 
 # ----------------------------------------------------------------------
 # ALIASES / FUNCTIONS
@@ -284,6 +316,8 @@ alias marked=/Applications/Marked.app/Contents/MacOS/Marked
 alias node="env NODE_NO_READLINE=1 rlwrap node"
 alias iojs="env NODE_NO_READLINE=1 rlwrap /usr/local/Cellar/iojs/2.0.1/bin/iojs"
 alias jscli=mancy
+
+alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)/bin/getopt
 
 ## --- work ones
 alias devbuild='JEKYLL_ENV=development bundle exec jekyll build --future --config _config.yml,_config_dev.yml --draft'

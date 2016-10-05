@@ -1,4 +1,4 @@
-# -*- mode: shell-unix-generic -*-
+#!/bin/bash
 
 # change dir and ls
 function cd() {
@@ -131,14 +131,6 @@ function server() {
 	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
 }
 
-# Start a PHP server from a directory, optionally specifying the port
-# (Requires PHP 5.4.0+.)
-function phpserver() {
-	local port="${1:-4000}"
-	local ip=$(ipconfig getifaddr en1)
-	sleep 1 && open "http://${ip}:${port}/" &
-	php -S "${ip}:${port}"
-}
 
 # Compare original and gzipped file size
 function gz() {
@@ -168,6 +160,12 @@ function json() {
 # All the dig info
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer
+}
+
+
+# Query Wikipedia via console over DNS
+mwiki() {
+	  dig +short txt "$*".wp.dg.cx
 }
 
 # Escape UTF-8 characters into their 3-byte format
@@ -238,6 +236,38 @@ function unquarantine() {
 	done
 }
 
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+tre() {
+	  tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
+}
+
+# Call from a local repo to open the repository on github/bitbucket in browser
+repo() {
+	  local giturl=$(git config --get remote.origin.url | sed 's/git@/\/\//g' | sed 's/.git$//' | sed 's/https://g' | sed 's/:/\//g')
+	  if [[ $giturl == "" ]]; then
+		    echo "Not a git repository or no remote.origin.url is set."
+	  else
+		    local gitbranch=$(git rev-parse --abbrev-ref HEAD)
+		    local giturl="http:${giturl}"
+
+		    if [[ $gitbranch != "master" ]]; then
+			      if echo "${giturl}" | grep -i "bitbucket" > /dev/null ; then
+				        local giturl="${giturl}/branch/${gitbranch}"
+			      else
+				        local giturl="${giturl}/tree/${gitbranch}"
+			      fi
+		    fi
+
+		    echo $giturl
+		    open $giturl
+	  fi
+}
+
+
 # Install Grunt plugins and add them as `devDependencies` to `package.json`
 # Usage: `gi contrib-watch contrib-uglify zopfli`
 function gi() {
@@ -264,3 +294,105 @@ function tabtitle () {
 # copy last command to clipboard, see also clc alias
 cl() { history -p '!!'|tr -d \\n|pbcopy; }
 bind -x '"\C-xc":copyline'
+
+
+# Get colors in manual pages
+man() {
+	  env \
+		    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		    LESS_TERMCAP_me=$(printf "\e[0m") \
+		    LESS_TERMCAP_se=$(printf "\e[0m") \
+		    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		    LESS_TERMCAP_ue=$(printf "\e[0m") \
+		    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+		    man "$@"
+}
+
+
+# get the name of a x window
+xname(){
+	  local window_id=$1
+
+	  if [[ -z $window_id ]]; then
+		    echo "Please specifiy a window id, you find this with 'xwininfo'"
+
+		    return 1
+	  fi
+
+	  local match_string='".*"'
+	  local match_int='[0-9][0-9]*'
+	  local match_qstring='"[^"\\]*(\\.[^"\\]*)*"' # NOTE: Adds 1 backreference
+
+	  # get the name
+	  xprop -id $window_id | \
+		    sed -nr \
+		        -e "s/^WM_CLASS\(STRING\) = ($match_qstring), ($match_qstring)$/instance=\1\nclass=\3/p" \
+		        -e "s/^WM_WINDOW_ROLE\(STRING\) = ($match_qstring)$/window_role=\1/p" \
+		        -e "/^WM_NAME\(STRING\) = ($match_string)$/{s//title=\1/; h}" \
+		        -e "/^_NET_WM_NAME\(UTF8_STRING\) = ($match_qstring)$/{s//title=\1/; h}" \
+		        -e '${g; p}'
+}
+
+
+# check if uri is up
+isup() {
+	  local uri=$1
+
+	  if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
+		    notify-send --urgency=critical "$uri is down"
+	  else
+		    notify-send --urgency=low "$uri is up"
+	  fi
+}
+
+
+# Usage: pls [<var>]
+# List path entries of PATH or environment variable <var>.
+pls () { eval echo \$${1:-PATH} |tr : '\n'; }
+
+
+# Usage: pshift [-n <num>] [<var>]
+# Shift <num> entries off the front of PATH or environment var <var>.
+# with the <var> option. Useful: pshift $(pwd)
+pshift () {
+    local n=1
+    [ "$1" = "-n" ] && { n=$(( $2 + 1 )); shift 2; }
+    eval "${1:-PATH}='$(pls |tail -n +$n |tr '\n' :)'"
+}
+
+# Usage: ppop [-n <num>] [<var>]
+# Pop <num> entries off the end of PATH or environment variable <var>.
+ppop () {
+    local n=1 i=0
+    [ "$1" = "-n" ] && { n=$2; shift 2; }
+    while [ $i -lt $n ]
+    do eval "${1:-PATH}='\${${1:-PATH}%:*}'"
+       i=$(( i + 1 ))
+    done
+}
+
+# Usage: prm <path> [<var>]
+# Remove <path> from PATH or environment variable <var>.
+prm () { eval "${2:-PATH}='$(pls $2 |grep -v "^$1\$" |tr '\n' :)'"; }
+
+# Usage: punshift <path> [<var>]
+# Shift <path> onto the beginning of PATH or environment variable <var>.
+punshift () { eval "${2:-PATH}='$1:$(eval echo \$${2:-PATH})'"; }
+
+# Usage: ppush <path> [<var>]
+ppush () { eval "${2:-PATH}='$(eval echo \$${2:-PATH})':$1"; }
+
+# Usage: puniq [<path>]
+# Remove duplicate entries from a PATH style value while retaining
+# the original order. Use PATH if no <path> is given.
+#
+# Example:
+#   $ puniq /usr/bin:/usr/local/bin:/usr/bin
+#   /usr/bin:/usr/local/bin
+puniq () {
+    # use $@ instead of $1 to cater for pathnames containing spaces
+    # also separate the various paths with '|' and reflect it in nl, sort and cut
+    echo "$@" | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://' |tr : '\n' | nl -s '|' | sort -u -t '|' -k 2,2 |sort -n | \
+    cut -f 2- -d '|' | tr '\n' : | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://'
+}
