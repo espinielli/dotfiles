@@ -168,7 +168,7 @@ alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\
 
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brewup='brew update; brew upgrade --all; brew cleanup; brew cask cleanup'
+alias brewup='brew update; brew upgrade; brew cleanup; brew cask cleanup'
 alias npmup='npm update npm -g; npm update -g'
 alias update='sudo softwareupdate -i -a; brewup; npmup; sudo gem update'
 
@@ -333,3 +333,8 @@ alias dok='eval $(docker-machine env default)'
 alias dok-rm-stop='docker rm $(docker ps -a -q)'
 alias dok-rmi-none='docker rmi $(docker images | grep "^<none>" | sed -e "s/[ \t][ \t]*/ /g" | cut -d " " -f 3)'
 alias jek='docker run --rm -v "$PWD:/src" -p 4000:4000 grahamc/jekyll'
+
+alias ora='docker run --shm-size=1g -p 1521:1521 -p 8080:8080 -v $HOME/var/lib/docker/db/espin:/u01/app/oracle/oradata oracle/database:11.2.0.2-xe'
+alias sqlcli="~/tools/sqlcl/bin/sql system/cucu@//$(docker-machine ip default):1521/XE"
+
+alias rstudio="open -a RStudio"

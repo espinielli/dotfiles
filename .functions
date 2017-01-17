@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # change dir and ls
 function cd() {
@@ -293,7 +293,7 @@ function tabtitle () {
 
 # copy last command to clipboard, see also clc alias
 cl() { history -p '!!'|tr -d \\n|pbcopy; }
-bind -x '"\C-xc":copyline'
+#bind -x '"\C-xc":copyline'
 
 
 # Get colors in manual pages
@@ -395,4 +395,34 @@ puniq () {
     # also separate the various paths with '|' and reflect it in nl, sort and cut
     echo "$@" | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://' |tr : '\n' | nl -s '|' | sort -u -t '|' -k 2,2 |sort -n | \
     cut -f 2- -d '|' | tr '\n' : | sed -e 's/^[ ][ ]*//' -e 's/:$//' -e 's/^://'
+}
+
+# run executables from nearest npm bin executables
+function npm-do { (PATH=$(npm bin):$PATH; eval $@;) }
+
+# go to a folder easily in your gopath
+gogo(){
+	  local d=$1
+
+	  if [[ -z $d ]]; then
+		    echo "You need to specify a project name."
+		    return 1
+	  fi
+
+	  if [[ "$d" == github* ]]; then
+		    d=$(echo "$d" | sed 's/.*\///')
+	  fi
+	  d=${d%/}
+
+	  # search for the project dir in the GOPATH
+	  local path=( $(find "${GOPATH}/src" \( -type d -o -type l \) -iname "$d"  | awk '{print length, $0;}' | sort -n | awk '{print $2}') )
+
+	  if [ "${path[0]}" == "" ] || [ "${path[*]}" == "" ]; then
+		    echo "Could not find a directory named $d in $GOPATH"
+		    echo "Maybe you need to 'go get' it ;)"
+		    return 1
+	  fi
+
+	  # enter the first path found
+	  cd "${path[0]}" || return 1
 }
