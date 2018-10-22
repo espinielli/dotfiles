@@ -168,7 +168,7 @@ alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\
 
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brewup='brew update; brew upgrade; brew cleanup; brew cask cleanup'
+alias brewup='brew update; brew upgrade; brew cleanup'
 alias npmup='npm update npm -g; npm update -g'
 alias update='sudo softwareupdate -i -a; brewup; npmup; sudo gem update'
 
