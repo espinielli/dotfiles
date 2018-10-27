@@ -31,3 +31,8 @@ done
 	                                       -W "$(grep "^Host" ~/.ssh/config | \
 	grep -v "[?*]" | cut -d " " -f2 | \
 	tr ' ' '\n')" scp sftp ssh
+
+export HOMEBREW_GITHUB_API_TOKEN=d2a46a6084f616d458cd3a39294259977dffa7f7
+export RSTUDIO_WHICH_R=/usr/local/bin/R
+# added by Miniconda3 3.16.0 installer
+export PATH="$PATH:/Users/espin/tools/miniconda3/bin"
