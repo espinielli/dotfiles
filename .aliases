@@ -277,7 +277,7 @@ alias untar='tar xvf'
 # ----------------------------------------------------------------------
 # manage dotfiles
 eval "$(hub alias -s)"
-alias home="git --work-tree=$HOME --git-dir=$HOME/repos/dotfiles.git"
+alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/.git"
 
 # disk usage with human sizes and minimal depth
 alias du1='du -h --max-depth=1'
