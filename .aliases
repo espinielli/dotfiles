@@ -1,113 +1,17 @@
 # Easier navigation: .., ..., ...., ....., ~ and -
 # inspired by https://github.com/mathiasbynens/dotfiles
-alias ..="cd .."
-alias ..1="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
-
-# copy last cmd to clipboard, see also cl function
-alias clc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
-
-alias trello=trelew
-
-
-# Shortcuts
-alias d="cd ~/Dropbox"
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias p="cd ~/Projects"
-alias www="cd ~/repos/PRU/website/"
-
-# git aliases from http://tjholowaychuk.com/page/3
-alias gd="git diff | subl"
-alias ga="git add"
-alias gbd="git branch -D"
-alias gst="git status"
-alias gls="git ls"
-alias gca="git commit -a -m"
-alias gm="git merge --no-ff"
-alias gpt="git push --tags"
-alias gp="git push"
-alias grh="git reset --hard"
-alias gb="git branch"
-alias gcob="git checkout -b"
-alias gco="git checkout"
-alias gba="git branch -a"
-alias gcp="git cherry-pick"
-alias gl="git log --pretty='format:%Cgreen%h%Creset %an - %s' --graph"
-alias gpom="git pull origin master"
-alias gcd='cd "`git rev-parse --show-toplevel`"'
-
-# Git status
-alias gg="git status -sb"
-
-# Git add and remove
-alias ga="git add"
-alias gr="git rm"
-
-# Git branch
-alias gb="git branch -v"
-
-# Git commit
-alias gc="git commit"
-alias gcam="git commit --amend"
-alias gcm="git commit -m"
-
-### --- gitflow --- ###
-# Git checkout
-alias gcod="git checkout develop"
-alias gcom="git checkout master"
-alias gcos="git checkout staging"
-
-# Git fetch
-alias gf="git fetch"
-alias gfa="git fetch --all"
-
-# Git pull
-alias gp="git pull --rebase"
-alias gprod="git pull --rebase origin develop"
-alias gprom="git pull --rebase origin master"
-alias gpros="git pull --rebase origin staging"
-alias gprud="git pull --rebase upstream develop"
-alias gprum="git pull --rebase upstream master"
-alias gprus="git pull --rebase upstream staging"
-
-# Git push
-alias gpod="git push origin develop"
-alias gpom="git push origin master"
-alias gpos="git push origin staging"
-alias gpud="git push upstream develop"
-alias gpum="git push upstream master"
-alias gpus="git push upstream staging"
-
-# Git rebase
-alias gra="git rebase --abort"
-alias grc="git rebase --continue"
-alias grd="git rebase develop"
-alias gri="git rebase -i"
-alias grm="git rebase master"
-alias grs="git rebase staging"
-
-# Git stash
-alias gsl="git stash list"
-alias gsp="git stash pop"
-alias gss="git stash save"
-
-# Git diff and log
-alias gd="git diff --color-words"
-alias gl="git log --oneline --decorate"
-
-### --- --- ###
+# alias ..="cd .."
+# alias ..1="cd .."
+# alias ..2="cd ../.."
+# alias ..3="cd ../../.."
+# alias ..4="cd ../../../.."
+# alias ~="cd ~" # `cd` is probably faster to type though
+# alias -- -="cd -"
 
 
 alias h="history"
 alias j="jobs"
-alias v="vim"
 alias m="more"
-alias s="subl ."
 alias o="open"
 alias oo="open ."
 
@@ -118,32 +22,11 @@ else # OS X `ls`
 	colorflag="-G"
 fi
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-	  ( test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" ) || eval "$(dircolors -b)"
-	  alias ls='ls --color=auto'
-	  alias dir='dir --color=auto'
-	  alias vdir='vdir --color=auto'
-
-	  alias grep='grep --color=auto'
-	  alias fgrep='fgrep --color=auto'
-	  alias egrep='egrep --color=auto'
-fi
-
-
-
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
 
 # List all files colorized in long format, including dot files
 alias la="ls -laF ${colorflag}"
-
-# List only directories
-alias lsd='ls -lF ${colorflag} | grep "^d"'
-
-alias ll="ls -l"
-alias l.="ls -d .*"
-alias la="ls -la"
 
 # Always use color output for `ls`
 alias ls="command ls ${colorflag}"
@@ -152,46 +35,25 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
-# Gzip-enabled `curl`
-alias gurl='curl --compressed'
-
-# Get week number
-alias week='date +%V'
-
-# Stopwatch
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-
 # IP addresses
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brewup='brew update; brew upgrade; brew cleanup'
-alias npmup='npm update npm -g; npm update -g'
-alias update='sudo softwareupdate -i -a; brewup; npmup; sudo gem update'
 
-# IP addresses
+## IP addresses
+# publicly visible IP address
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+# local IP address
+alias lip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
-
-# Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
-
-# View HTTP traffic
-alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
-alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
-
-# Canonical hex dump; some systems have this symlinked
-command -v hd > /dev/null || alias hd="hexdump -C"
 
 # OS X has no `md5sum`, so use `md5` as a fallback
 command -v md5sum > /dev/null || alias md5sum="md5"
@@ -205,9 +67,6 @@ alias c="tr -d '\n' | pbcopy"
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
-# ROT13-encode text. Works for decoding, too! ;)
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
@@ -219,9 +78,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -249,28 +105,6 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
-# Kill all the tabs in Chrome to free up memory
-# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
-
-
-# Make Grunt print stack traces by default
-command -v grunt > /dev/null && alias grunt="grunt --stack"
-
-# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 7'"
-alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
-
-# from https://github.com/kadamwhite/dotfiles/blob/master/.bash_profile
-alias fix_open_with='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user;killall Finder;echo "Open With has been rebuilt, Finder will relaunch"'
-
-# AWS Connection
-alias connect-aws='ssh -i ~/.ssh/aws-kaw.com-ssh.pem ubuntu@ec2-54-213-99-0.us-west-2.compute.amazonaws.com'
-
-# untar
-alias untar='tar xvf'
-
 
 # ----------------------------------------------------------------------
 # ALIASES / FUNCTIONS
@@ -284,7 +118,6 @@ alias du1='du -h --max-depth=1'
 alias fn='find . -name'
 alias hi='history | tail -20'
 alias h=history
-alias psa='ps auxwww'
 
 alias cls=clear
 
@@ -293,40 +126,13 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# shortcuts
-## --- common lisp ---
-alias cl=sbcl
-
 ## --- emacs ---
 # if not brew's emacs use
 : ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
 alias emacs=${EMACS_EXEC}
 
-## --- emacs client ---
-## adapted from http://philipweaver.blogspot.com/2009/08/emacs-23.html
-# start a windowed frame
-alias ec='${EMACS_EXEC%/*}/emacsclient -n -c -a ${EMACS_EXEC}'
-# start a terminal frame
-alias em='${EMACS_EXEC%/*}/emacsclient -t -a ${EMACS_EXEC} -nw'
-# do not start a new frame
-alias ea='${EMACS_EXEC%/*}/emacsclient -n -a ${EMACS_EXEC}'
-
-alias marked=/Applications/Marked.app/Contents/MacOS/Marked
-
-alias node="env NODE_NO_READLINE=1 rlwrap node"
-alias iojs="env NODE_NO_READLINE=1 rlwrap /usr/local/Cellar/iojs/2.0.1/bin/iojs"
-alias jscli=mancy
-
 alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)/bin/getopt
 
-## --- work ones
-alias devbuild='JEKYLL_ENV=development bundle exec jekyll build --future --config _config.yml,_config_dev.yml --draft'
-alias devserve='JEKYLL_ENV=development bundle exec jekyll serve --skip-initial-build --future --config _config.yml,_config_dev.yml --draft'
-alias expbuild='JEKYLL_ENV=development bundle exec jekyll build --future --config _config.yml,_config_dev.yml,_config_exp.yml'
-alias expserve='JEKYLL_ENV=development bundle exec jekyll serve --future --config _config.yml,_config_dev.yml,_config_exp.yml'
-alias pubbuild='JEKYLL_ENV=production bundle exec jekyll build --future'
-
-alias serve='python -m SimpleHTTPServer 8989'
 
 ## --- docker
 alias dok='eval $(docker-machine env default)'
@@ -336,5 +142,3 @@ alias jek='docker run --rm -v "$PWD:/src" -p 4000:4000 grahamc/jekyll'
 
 alias ora='docker run --shm-size=1g -p 1521:1521 -p 8080:8080 -v $HOME/var/lib/docker/db/espin:/u01/app/oracle/oradata oracle/database:11.2.0.2-xe'
 alias sqlcli="~/tools/sqlcl/bin/sql system/cucu@//$(docker-machine ip default):1521/XE"
-
-alias rstudio="open -a RStudio"
