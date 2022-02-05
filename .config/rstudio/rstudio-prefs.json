@@ -1,0 +1,6 @@
+{
+    "save_workspace": "never",
+    "load_workspace": false,
+    "initial_working_directory": "~",
+    "posix_terminal_shell": "bash"
+}

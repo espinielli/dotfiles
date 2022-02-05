@@ -110,7 +110,6 @@ done
 # ALIASES / FUNCTIONS
 # ----------------------------------------------------------------------
 # manage dotfiles
-eval "$(hub alias -s)"
 alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/.git"
 
 # disk usage with human sizes and minimal depth
@@ -141,4 +140,4 @@ alias dok-rmi-none='docker rmi $(docker images | grep "^<none>" | sed -e "s/[ \t
 alias jek='docker run --rm -v "$PWD:/src" -p 4000:4000 grahamc/jekyll'
 
 alias ora='docker run --shm-size=1g -p 1521:1521 -p 8080:8080 -v $HOME/var/lib/docker/db/espin:/u01/app/oracle/oradata oracle/database:11.2.0.2-xe'
-alias sqlcli="~/tools/sqlcl/bin/sql system/cucu@//$(docker-machine ip default):1521/XE"
+alias sqlcli='~/tools/sqlcl/bin/sql system/cucu@//$(docker-machine ip default):1521/XE'
