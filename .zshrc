@@ -70,7 +70,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gh git-extras fd marked2 zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,6 +101,39 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
+# trim history
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+    # Only those that satisfy all of the following conditions are added to the history
+    [[ ${#line} -ge 5
+       && ${cmd} != ll
+       && ${cmd} != ls
+       && ${cmd} != la
+       && ${cmd} != cd
+       && ${cmd} != man
+       && ${cmd} != scp
+       && ${cmd} != vim
+       && ${cmd} != nvim
+       && ${cmd} != less
+       && ${cmd} != ping
+       && ${cmd} != open
+       && ${cmd} != file
+       && ${cmd} != which
+       && ${cmd} != whois
+       && ${cmd} != drill
+       && ${cmd} != uname
+       && ${cmd} != md5sum
+       && ${cmd} != pacman
+       && ${cmd} != xdg-open
+       && ${cmd} != traceroute
+       && ${cmd} != speedtest-cli
+    ]]
+}
+
+zshaddhistory
+
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don<E2><80><99>t want to commit.
@@ -121,6 +154,30 @@ export MANPATH=$(puniq $MANPATH)
 
 # error msgs in English rather than French!
 export LC_ALL=C
+
 # R & Co.
 export PATH=/opt/R/arm64/bin:$PATH
 export PATH="/Library/Frameworks/R.framework/Resources:${PATH}"
+
+# user .Rprofile moved to a different name to "fool" starship
+export R_PROFILE_USER="~/.Rprofile.espin"
+eval "$(starship init zsh)"
+
+# zsh syntax highlight
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/espin/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/espin/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/Users/espin/mambaforge/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/espin/mambaforge/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
