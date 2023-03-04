@@ -2,5 +2,15 @@
     "save_workspace": "never",
     "load_workspace": false,
     "initial_working_directory": "~",
-    "posix_terminal_shell": "bash"
+    "posix_terminal_shell": "bash",
+    "default_project_location": "~/repos",
+    "jobs_tab_visibility": "shown",
+    "editor_theme": "Solarized Light",
+    "rmd_viewer_type": "pane",
+    "margin_column": 100,
+    "rainbow_parentheses": true,
+    "enable_text_drag": false,
+    "highlight_r_function_calls": true,
+    "strip_trailing_whitespace": true,
+    "insert_native_pipe_operator": true
 }

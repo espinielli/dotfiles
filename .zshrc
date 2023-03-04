@@ -47,7 +47,7 @@ ZSH_THEME="robbyrussell"
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -70,7 +70,8 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gh git-extras fd marked2 zsh-completions)
+# plugins=(git gh git-extras fd marked2 zsh-completions)
+plugins=(fd marked2 zsh-completions git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -140,7 +141,7 @@ zshaddhistory
 # * ~/.dockerfunct has Bash wrappers for docker run commands, from
 #                  https://github.com/jessfraz/dotfiles/blob/master/.dockerfunc
 # * ~/.xsh from http://xiki.com/
-#
+#command -v sha1sum command -v sha1sum
 # source all the .aliases,.functions,.path,.extra,.exports,.xsh
 for file in ~/.{aliases,functions,path,extra,exports}; do
     # shellcheck disable=SC1090
@@ -148,23 +149,31 @@ for file in ~/.{aliases,functions,path,extra,exports}; do
 done
 unset file
 
-# condense PATH entries
-export PATH=$(puniq $PATH)
-export MANPATH=$(puniq $MANPATH)
-
 # error msgs in English rather than French!
-export LC_ALL=C
+# export LC_ALL=C
+# all kind of chars
+export LC_ALL="en_US.UTF-8"
 
 # R & Co.
 export PATH=/opt/R/arm64/bin:$PATH
 export PATH="/Library/Frameworks/R.framework/Resources:${PATH}"
 
-# user .Rprofile moved to a different name to "fool" starship
-export R_PROFILE_USER="~/.Rprofile.espin"
-eval "$(starship init zsh)"
+# prompt customization via starship
+# eval "$(starship init zsh)"
 
 # zsh syntax highlight
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.local/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# poetry
+export PATH="/Users/espin/.local/bin:$PATH"
+
+
+
+# condense PATH entries; keep it last
+export PATH=".:$PATH"
+export PATH=$(puniq $PATH)
+# export MANPATH=$(puniq $MANPATH)
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

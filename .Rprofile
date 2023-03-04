@@ -28,6 +28,12 @@
   )
 }
 
+# if (interactive()) {
+#    paint::mask_print()
+#    prettycode::prettycode()
+#    prompt::set_prompt(prompt::new_prompt_powerline())
+# }
+
 if (interactive()) {
   # blogdown options
   options(
@@ -35,6 +41,7 @@ if (interactive()) {
     blogdown.use.rmd = TRUE
   )
 
+   options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
 
   ##--------- shortcuts ------------
   # taken from https://github.com/jimhester/dotfiles/blob/master/R/Rprofile
