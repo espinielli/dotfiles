@@ -56,21 +56,12 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-#alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
-
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"
 # Enable Spotlight
 alias spoton="sudo mdutil -a -i on"
 
-# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-#alias plistbuddy="/usr/libexec/PlistBuddy"
 
-# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
-# (useful when executing time-consuming commands)
-#alias badge="tput bel"
 
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
@@ -90,7 +81,7 @@ done
 alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/.git"
 
 # disk usage with human sizes and minimal depth
-alias du1='du -h --max-depth=1'
+alias du1='du -h -d=1'
 alias fn='find . -name'
 alias hi='history | tail -20'
 alias h=history
@@ -104,8 +95,8 @@ alias mv='mv -i'
 
 ## --- emacs ---
 # if not brew's emacs use
-: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
-alias emacs=${EMACS_EXEC}
+#: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
+#alias emacs=${EMACS_EXEC}
 
 alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)/bin/getopt
 
@@ -114,7 +105,3 @@ alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)
 alias dok='eval $(docker-machine env default)'
 alias dok-rm-stop='docker rm $(docker ps -a -q)'
 alias dok-rmi-none='docker rmi $(docker images | grep "^<none>" | sed -e "s/[ \t][ \t]*/ /g" | cut -d " " -f 3)'
-alias jek='docker run --rm -v "$PWD:/src" -p 4000:4000 grahamc/jekyll'
-
-alias ora='docker run --shm-size=1g -p 1521:1521 -p 8080:8080 -v $HOME/var/lib/docker/db/espin:/u01/app/oracle/oradata oracle/database:11.2.0.2-xe'
-alias sqlcli='~/tools/sqlcl/bin/sql system/cucu@//$(docker-machine ip default):1521/XE'
