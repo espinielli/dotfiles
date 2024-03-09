@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+enable-brew () {
+    alias brew="$HOME/.local/homebrew/bin/brew"
+}
 
 # Escape UTF-8 characters into their 3-byte format
 function escape() {

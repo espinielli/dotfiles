@@ -40,8 +40,8 @@ if (interactive()) {
     blogdown.author = "Enrico Spinielli",
     blogdown.use.rmd = TRUE
   )
-
-   options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
+  # TODO: check for pkg existence
+  options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
 
   ##--------- shortcuts ------------
   # taken from https://github.com/jimhester/dotfiles/blob/master/R/Rprofile
@@ -59,8 +59,8 @@ if (interactive()) {
     li <- shortcut(library)
     l <- shortcut(devtools::load_all)
 
-    i <- shortcut(devtools::install)
-    gh <- shortcut(devtools::install_github)
+    i <- shortcut(pak::pkg_install)
+    gh <- shortcut(pak::pkg_install)
 
     id <- shortcut(function(dependencies = TRUE, ...) {
       devtools::install_deps(dependencies = dependencies, ...)
@@ -74,7 +74,7 @@ if (interactive()) {
     # gaborcsardi/tracer
     #tb <- shortcut(tracer::tb)
 
-    t <- shortcut(
+    tt <- shortcut(
       test <- function(filter = NULL, length = 5, pkg = ".", ..., reporter = "progress") {
         if (is.null(reporter)) {
           #reporter <- testthat::SummaryReporter$new()
@@ -144,11 +144,13 @@ if (interactive()) {
   # We need to attach stats before .env to shadow qt
   library(stats)
   suppressMessages(attach(.env))
-  ##------------------
 
-  # Automatically (and silentrly) load packages in interactive sessions
+  # Automatically (and silently) load packages in interactive sessions
   # auto.loads <-c("devtools", "tidyverse")
-  auto.loads <-c()
+  auto.loads <- c()
   invisible(sapply(auto.loads, sshhh))
   rm(auto.loads)
+  
+  ##----- libraries ----
+  library(fcuk)
 }

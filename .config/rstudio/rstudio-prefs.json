@@ -12,5 +12,9 @@
     "enable_text_drag": false,
     "highlight_r_function_calls": true,
     "strip_trailing_whitespace": true,
-    "insert_native_pipe_operator": true
+    "insert_native_pipe_operator": true,
+    "git_diff_ignore_whitespace": true,
+    "restore_last_project": false,
+    "source_with_echo": true,
+    "show_terminal_tab": false
 }

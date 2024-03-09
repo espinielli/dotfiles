@@ -1,5 +1,5 @@
 # safer homebrew, https://gist.github.com/pudquick/29bc95b6c49703992981864e48f8e341
-alias brew=~/.local/homebrew/bin/brew
+# alias brew=~/.local/homebrew/bin/brew
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 # inspired by https://github.com/mathiasbynens/dotfiles
@@ -11,8 +11,21 @@ alias brew=~/.local/homebrew/bin/brew
 # alias ~="cd ~" # `cd` is probably faster to type though
 # alias -- -="cd -"
 
+# git aliases
+alias gst='git status'
+alias gss='git status --short'
+alias gr='git remote'
+# Press Ctrl+g to show your git status
+bindkey -s '^g' 'git status --short^M'
+
+
+# check your zsh startup time
+alias timezsh='for i in $(seq 1 10); do time zsh -i -c exit; done'
 
 alias h="history"
+# not initial blank...then exit the shell
+alias incognito=' unset HISTFILE'
+
 # alias j="jobs"
 alias m="more"
 alias o="open"
@@ -98,7 +111,7 @@ alias mv='mv -i'
 #: ${EMACS_EXEC='/Applications/Emacs.app/Contents/MacOS/Emacs'}
 #alias emacs=${EMACS_EXEC}
 
-alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)/bin/getopt
+#alias getopt=$(brew info gnu-getopt | grep "^$(brew --prefix)" | cut -d ' ' -f1)/bin/getopt
 
 
 ## --- docker
