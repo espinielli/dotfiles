@@ -12,80 +12,24 @@ brew upgrade
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew install findutils
-# Install Bash 4
-brew install bash
-
-# Install wget with IRI support
-brew install wget --enable-iri
-
-# Install other useful binaries
-brew install readline
-brew install python # python
-brew tap homebrew/science
-brew tap samueljohn/python # install relevant python packages
-brew install numpy
-brew link numpy
-source ~/.py
-
-brew linkapps
-
 
 brew install xz
 brew install git
-brew install hub
-brew install git-extras
-# install node ...
-brew install node
-# ... and npm
-curl https://www.npmjs.org/install.sh | sh
+brew install bat
+brew install colordiff
+brew install jq
+brew install micromamba
+brew install podman
+brew install pocketbase
+brew install qvm
+brew install tmux
+brew install trino
+brew install yt-dlp
 
-brew install noweb
-brew install gdal
-brew install gsl # needed by qgis
-brew install sbcl # Lisp is a must!
-brew install google-app-engine
+brew install r
+brew install rstudio
+brew install rig
+brew install wezterm
 
+brew install rtl_433
 
-brew install opencv
-
-####################
-#TODO: see brew list to get the other ones!!!!!!!
-####################
-
-### npm
-npm install -g topojson
-npm install -g bower
-npm install -g coffee-script
-npm install -g coffeekup
-
-### gems
-gem install gist
-
-
-# Install native apps
-brew tap phinze/homebrew-cask
-brew install brew-cask
-
-function installcask() {
-	if brew cask info "${@}" | grep "Not installed" > /dev/null; then
-		brew cask install "${@}"
-	else
-		echo "${@} is already installed."
-	fi
-}
-
-# install all casks listed in ~/.casks
-if [[ -s ~/.casks ]]
-then
-	for p in $(cat ~/.casks)
-	do
-		installcask $p
-	done
-fi
-
-wget https://raw.githubusercontent.com/bobthecow/git-flow-completion/master/git-flow-completion.bash -O .git-flow-completion.bash
-
-# Remove outdated versions from the cellar
-brew cleanup
