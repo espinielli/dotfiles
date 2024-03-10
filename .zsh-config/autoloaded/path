@@ -1,0 +1,12 @@
+# -------------------------------------------------------------------
+# display a neatly formatted PATH content with colors
+# -------------------------------------------------------------------
+
+echo "$PATH" | tr ":" "\n" | \
+awk "{ sub(\"/usr\",   \"\x1b[0;32m/usr\x1b[0m\"); \
+			sub(\"/bin\",   \"\x1b[0;34m/bin\x1b[0m\"); \
+			sub(\"/opt\",   \"\x1b[0;36m/opt\x1b[0m\"); \
+			sub(\"/sbin\",  \"\x1b[0;35m/sbin\x1b[0m\"); \
+			sub(\"/local\", \"\x1b[0;33m/local\x1b[0m\"); \
+			print }"
+

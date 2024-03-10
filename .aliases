@@ -91,7 +91,7 @@ done
 # ALIASES / FUNCTIONS
 # ----------------------------------------------------------------------
 # manage dotfiles
-alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/.git"
+alias home="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/"
 
 # disk usage with human sizes and minimal depth
 alias du1='du -h -d=1'
