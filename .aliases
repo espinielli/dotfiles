@@ -11,6 +11,9 @@
 # alias ~="cd ~" # `cd` is probably faster to type though
 # alias -- -="cd -"
 
+#micromamba
+alias mm=micromamba
+
 # git aliases
 alias gst='git status'
 alias gss='git status --short'

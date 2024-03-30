@@ -17,7 +17,7 @@ fi
 
 
 # https://github.com/sindresorhus/pure#options
-export PURE_PROMPT_SYMBOL='λ'
+export PURE_PROMPT_SYMBOL='λ>'
 
 #-----------------------------------------------------
 # Setting autoloaded functions

@@ -2,6 +2,11 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
+
+# from https://hidutil-generator.netlify.app/
+# remap CAPS-LOCK to (left) CTRL, see file
+# ~/Library/LaunchAgents/com.local.KeyRemapping.plist
+
 # for profiling zsh
 # https://unix.stackexchange.com/a/329719/27109
 #
@@ -99,3 +104,6 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+
+# rust
+. "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh

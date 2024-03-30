@@ -48,6 +48,8 @@ alias H=' | head '
 alias W=' | wc -l '
 alias S=' | sort '
 
+function mcd() { mkdir -p $@ && cd ${@:$#} }
+
 function handle-multi-arguments(){
 	if [ ! "$#" -gt 1 ] ; then
 	  echo "Usage: $0 file1 file2 ..." >&2
