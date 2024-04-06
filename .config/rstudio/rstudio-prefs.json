@@ -15,5 +15,34 @@
     "insert_native_pipe_operator": true,
     "git_diff_ignore_whitespace": true,
     "restore_last_project": false,
-    "source_with_echo": true
+    "source_with_echo": true,
+    "panes": {
+        "quadrants": [
+            "Source",
+            "TabSet1",
+            "Console",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "Environment",
+            "History",
+            "Connections",
+            "Build",
+            "VCS",
+            "Tutorial",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Files",
+            "Plots",
+            "Packages",
+            "Help",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    }
 }
