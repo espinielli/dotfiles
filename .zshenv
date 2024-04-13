@@ -20,5 +20,5 @@ fi
 export PATH=$PATH:${HOME}/.bin
 
 # espinielli addition: really needed?
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=~/.local/homebrew/share/zsh-syntax-highlighting/highlighters
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
 . "$HOME/.cargo/env"
