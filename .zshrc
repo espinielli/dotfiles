@@ -107,3 +107,10 @@ unset __mamba_setup
 
 # rust
 . "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
+
+# Go
+PATH=$PATH:/usr/local/go/bin
+
+# quarto version manager
+export PATH="$(qvm path add)"
+
