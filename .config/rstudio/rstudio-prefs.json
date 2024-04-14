@@ -4,7 +4,7 @@
     "initial_working_directory": "~",
     "posix_terminal_shell": "bash",
     "default_project_location": "~/repos",
-    "jobs_tab_visibility": "closed",
+    "jobs_tab_visibility": "shown",
     "editor_theme": "Solarized Light",
     "rmd_viewer_type": "pane",
     "margin_column": 100,
