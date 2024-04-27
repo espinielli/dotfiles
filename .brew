@@ -19,6 +19,7 @@ brew install tmux
 # utilities
 brew install xz
 brew install git
+brew install curl
 brew install bat
 brew install tldr
 brew install zsh-syntax-highlighting
@@ -28,22 +29,20 @@ brew install jq
 brew install micromamba
 brew install podman
 brew install pocketbase
+brew install wezterm
 
 # DBs & tools
+brew install ghostscript
+brew install imagemagick
 brew install duckdb
-#brew install sqlite
+brew install sqlite
 
 # tools
 brew install yt-dlp
-#brew install ffmpeg
 #brew install exiftool
 #brew install lua
-#brew install magick
-# brew install tinkertool
-# brew install torbrowserbundle
-# brew install transmission
+brew install transmission-cli
 # brew install vlc
-
 
 # R ecosystem
 brew install r
@@ -61,5 +60,6 @@ brew install rtl_433
 brew install dump1090-mutability
 brew install soapyrtlsdr
 
-
+# Rust
 brew install rustup-init
+
