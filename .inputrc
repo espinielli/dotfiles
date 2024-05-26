@@ -21,6 +21,9 @@ set show-all-if-unmodified on
 set completion-prefix-display-length 10
 set print-completions-horizontally off
 
+# for use with sbcl
+"\C-xe":   rlwrap-call-editor            # CTRL-x e
+
 set editing-mode emacs
 
 # reload file
