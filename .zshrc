@@ -84,8 +84,8 @@ export OMP_NUM_THREADS=8
 
 # you should have done this when you set up the MESA SDK
 # The directory shown is only an example and must be modified for your particular system.
-export MESASDK_ROOT=/Applications/mesasdk
-source $MESASDK_ROOT/bin/mesasdk_init.sh
+#export MESASDK_ROOT=/Applications/mesasdk
+#source $MESASDK_ROOT/bin/mesasdk_init.sh
 #=========================================
 
 export NVM_DIR="$HOME/.nvm"
