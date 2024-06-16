@@ -1,35 +1,22 @@
-# My Zone
+# Dotfiles and machine configuration
 
-I version control my (development) enviroment, see [Setup](#setup) section for the hows,
-and have done so to be able to install other machines in a controlled way.
+Everything[^1] is under version control in GitHub and have done so to be able to install other machines in a reproducible way.
 
 The software I need is typically installed via [Homebrew][brew], so it is quite MacOS oriented.
 
-I store the instructions to do so in the respective files, `.brew-list`, while for OSX configuration I adopted/copied from
-[Mathias Bynens][mathias]'s excellent repo, i.e. `.osx`.
-
-
-## homebrew ##
-The [package manager for MacOS][brew].
-Packages and casks are in `$HOME/.brew`.
-
-## Solarized ##
-* For Linux I used these [.Xresources][xres]
-* For OSX I followed [these instructions][osxsol]
-
-
-# Dotfiles et. Co. Setup(#setup) 
-Everything[^1] is under version control in GitHub.
-And a lot is inspired by [Mathias Bynens' dotfiles][mathias].
-
-I use the [detached work tree approach][worktree]
-whereby I keep my GIT repo away from my HOME directory.
-See also [here][otherdwt].
+I store the instructions to do set my machines up in various files/scripts similarly to what
+[Mathias Bynens][mathias] did.
 
 [^1]: well almost, I am not yet decided on how to manage secrets...separate private repo?
   Then what about framework data/privacy leaks? What about personal mistakes?
 
-## <a id="ignoring"> ignoring ##
+
+# Dotfiles' Repo Setup
+
+I use the [detached work tree approach][otherdwt] whereby I keep my GIT repo away from my HOME directory.
+
+
+## ignoring, the global setup
 The following is expecially needed for a dotfiles repo
 
 * setup what to ignore:
@@ -52,7 +39,7 @@ The following is expecially needed for a dotfiles repo
 
 
 ## Initial Setup: put your dotfiles under git ##
-I got inspired by [this post][worktreeblog] and this is how I did it:
+I got inspired by [this post][worktreeblog] (no more reacheable) and this is how I did it:
 
 * create your git repo
 
