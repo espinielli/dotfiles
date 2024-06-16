@@ -1,100 +1,84 @@
-# My Zone
+# Dotfiles and machine configuration
 
-I version control my (development) enviroment, see [Setup](#setup) section for the hows,
-and have done so to be able to install other machines in a controlled way.
+Everything[^1] is under version control in GitHub and have done so to be able to install other machines in a reproducible way.
 
 The software I need is typically installed via [Homebrew][brew], so it is quite MacOS oriented.
 
-I store the instructions to do so in the respective files, `.brew-list`, while for OSX configuration I adopted/copied from
-[Mathias Bynens][mathias]'s excellent repo, i.e. `.osx`.
-
-
-## homebrew ##
-The [package manager for MacOS][brew].
-Packages and casks are in `$HOME/.brew`.
-
-## Solarized ##
-* For Linux I used these [.Xresources][xres]
-* For OSX I followed [these instructions][osxsol]
-
-
-# Dotfiles et. Co. Setup(#setup) 
-Everything[^1] is under version control in GitHub.
-And a lot is inspired by [Mathias Bynens' dotfiles][mathias].
-
-I use the [detached work tree approach][worktree]
-whereby I keep my GIT repo away from my HOME directory.
-See also [here][otherdwt].
+I store the instructions to do set my machines up in various files/scripts similarly to what
+[Mathias Bynens][mathias] did.
 
 [^1]: well almost, I am not yet decided on how to manage secrets...separate private repo?
   Then what about framework data/privacy leaks? What about personal mistakes?
 
-## <a id="ignoring"> ignoring ##
+
+# Dotfiles' Repo Setup
+
+I use the [detached work tree approach][otherdwt] whereby I keep my GIT repo away from my HOME directory.
+
+
+## ignoring, the global setup
 The following is expecially needed for a dotfiles repo
 
 * setup what to ignore:
-
-        $ cd $HOME
-        $ cat <<EOF
-        # ignore all by default
-        #/*
-        # specific ignores
-        .DS_Store
-        *.pyc
-        node_modules
-        # do not ignore:
-        !bin/
-        EOF > $HOME/.gitignore_global
-
+  ```shell
+  $ cd $HOME
+  $ cat <<EOF
+  # specific ignores
+  .DS_Store
+  *.pyc
+  node_modules
+  # do not ignore:
+  !bin/
+  EOF > $HOME/.gitignore_global
+  ```
 * and add it to the global git config in $HOME
-
-        $ git config --global core.excludesfile $HOME/.gitignore_global
-
+  ```shell
+  $ git config --global core.excludesfile $HOME/.gitignore_global
+  ```
 
 ## Initial Setup: put your dotfiles under git ##
-I got inspired by [this post][worktreeblog] and this is how I did it:
+I got inspired by [this post][worktreeblog] (no more reacheable) and this is how I did it:
 
 * create your git repo
-
-        $ cd $HOME
-        $ mkdir -p $HOME/.dotfiles
-
+  ```shell
+  $ cd $HOME
+  $ mkdir -p $HOME/.dotfiles
+  ```
 * make an alias, `home`, to manage this special repo
-
-        $ echo "alias home='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> $HOME/.zshrc
-        $ source $HOME/.zshrc
-
+  ```shell
+  $ echo "alias home='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> $HOME/.zshrc
+  $ source $HOME/.zshrc
+  ```
 * init the repo and start adding dotfiles
+  ```shell
+  $ home init
+  $ home add $HOME/.bash_profile $HOME/.bashrc $HOME/.bash_aliases
+  $ home commit -m 'Initial commit'
+  $ home remote add origin git@github.com:espinielli/.dotfiles
+  $ home push origin master
+  ```
 
-        $ home init
-        $ home add $HOME/.bash_profile $HOME/.bashrc $HOME/.bash_aliases
-        $ home commit -m 'Initial commit'
-        $ home remote add origin git@github.com:espinielli/.dotfiles
-        $ home push origin master
-
-
-## <a id="cloning"> set it up on a second/third/... machine ##
+## set it up on a second/third/... machine
 Now to use (and contribute) from a different machine
 
 * backup your existing dot files
 * clone the repo
-
-        $ cd $HOME
-        $ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
-
+  ```shell
+  $ cd $HOME
+  $ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
+  ```
 * move git repo configuration info in `$HOME/.dotfiles/`
-
-        $ mv /tmp/dotfiles.git/.git $HOME/.dotfiles/
-
+  ```shell
+  $ mv /tmp/dotfiles.git/.git $HOME/.dotfiles/
+  ```
 * enable `dotglob` and copy the dot files to `$HOME`
-
-        $ setopt -s dotglob
-        $ mv -i /tmp/dotfiles.git/* $HOME
-
+  ```shell
+  $ setopt -s dotglob
+  $ mv -i /tmp/dotfiles.git/* $HOME
+  ```
 Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
 
 Use `home ls-files` to list the version controlled dotfiles.
-
 
 
 
