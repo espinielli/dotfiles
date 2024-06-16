@@ -1,9 +1,9 @@
-# My Zone #
+# My Zone
 
 I version control my (development) enviroment, see [Setup](#setup) section for the hows,
 and have done so to be able to install other machines in a controlled way.
 
-The software I need is typically installed via [Homebrew][brew].
+The software I need is typically installed via [Homebrew][brew], so it is quite MacOS oriented.
 
 I store the instructions to do so in the respective files, `.brew-list`, while for OSX configuration I adopted/copied from
 [Mathias Bynens][mathias]'s excellent repo, i.e. `.osx`.
@@ -18,15 +18,16 @@ Packages and casks are in `$HOME/.brew`.
 * For OSX I followed [these instructions][osxsol]
 
 
-# <a name="setup"></a> Dotfiles et. Co. Setup #
-Everything (well almost) is under version control in GitHub.
-
+# Dotfiles et. Co. Setup(#setup) 
+Everything[^1] is under version control in GitHub.
 And a lot is inspired by [Mathias Bynens' dotfiles][mathias].
 
 I use the [detached work tree approach][worktree]
 whereby I keep my GIT repo away from my HOME directory.
 See also [here][otherdwt].
 
+[^1]: well almost, I am not yet decided on how to manage secrets...separate private repo?
+  Then what about framework data/privacy leaks? What about personal mistakes?
 
 ## <a id="ignoring"> ignoring ##
 The following is expecially needed for a dotfiles repo
@@ -100,8 +101,8 @@ Use `home ls-files` to list the version controlled dotfiles.
 # References #
 
 1. [Detached work tree][worktree] approach.
-2. [Similar installation][worktreeblog].
-2. Inspirations about [dot files][dotfiles].
+1. [Similar installation][worktreeblog].
+1. Inspirations about [dot files][dotfiles].
 1. I got inspired from [this][silas] and [this][scriva] and [this][anotherdotfile] as well.
 
 
