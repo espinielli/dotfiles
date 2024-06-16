@@ -20,7 +20,7 @@ I use the [detached work tree approach][otherdwt] whereby I keep my GIT repo awa
 The following is expecially needed for a dotfiles repo
 
 * setup what to ignore:
-
+  ```shell
         $ cd $HOME
         $ cat <<EOF
         # ignore all by default
@@ -32,7 +32,7 @@ The following is expecially needed for a dotfiles repo
         # do not ignore:
         !bin/
         EOF > $HOME/.gitignore_global
-
+  ```
 * and add it to the global git config in $HOME
 
         $ git config --global core.excludesfile $HOME/.gitignore_global
