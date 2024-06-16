@@ -84,29 +84,15 @@ Use `home ls-files` to list the version controlled dotfiles.
 
 # References #
 
-1. [Detached work tree][worktree] approach.
-1. [Similar installation][worktreeblog].
-1. Inspirations about [dot files][dotfiles].
-1. I got inspired from [this][silas] and [this][scriva] and [this][anotherdotfile] as well.
+1. [Detached work tree][worktreeblog] approach.
+1. I got inspired from [this][silas], [this][otherdwt] and [this][anotherdotfile] as well.
 
 
-[worktree]: http://git-scm.com/2010/04/11/environment.html "detached work tree in git"
 [worktreeblog]: http://sursolid.com/managing-home-dotfiles-with-git-and-github
-[dotfiles]: http://dotfiles.github.com/ "examples of dotfiles"
 [silas]: http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/
-[scriva]: http://robescriva.com/blog/2009/01/06/manage-your-home-with-git/
 [anotherdotfile]: http://gmarik.info/blog/2010/05/02/tracking-dotfiles-with-git
 [xres]: https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources
 [osxsol]: https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized
-[el-get]: https://github.com/dimitri/el-get
-[shocco]: https://github.com/rtomayko/shocco "literate-programming doc generator POSIX shell"
 [brew]: http://mxcl.github.com/homebrew/ "homebrew"
-[sublime]: http://www.sublimetext.com/2 "Sublime Text 2"
 [mathias]: https://github.com/mathiasbynens/dotfiles "Mathias Bynens' dotfiles"
 [otherdwt]: https://www.electricmonk.nl/log/2015/06/22/keep-your-home-dir-in-git-with-a-detached-working-directory/
-<!---
-Local Variables:
-mode: markdown
-mode: gfm
-end:
--->
