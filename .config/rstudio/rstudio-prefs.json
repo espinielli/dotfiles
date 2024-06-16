@@ -7,7 +7,6 @@
     "jobs_tab_visibility": "shown",
     "editor_theme": "Solarized Light",
     "rmd_viewer_type": "pane",
-    "margin_column": 100,
     "rainbow_parentheses": true,
     "enable_text_drag": false,
     "highlight_r_function_calls": true,
@@ -44,5 +43,8 @@
         "console_left_on_top": false,
         "console_right_on_top": true,
         "additional_source_columns": 0
-    }
+    },
+    "relative_line_numbers": true,
+    "show_invisibles": true,
+    "editor_scroll_multiplier": 80
 }

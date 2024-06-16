@@ -117,3 +117,6 @@ PATH=$PATH:/usr/local/go/bin
 # quarto version manager
 export PATH="$(qvm path add)"
 
+
+# Created by `pipx` on 2024-06-12 13:28:56
+export PATH="$PATH:/Users/spi/.local/bin"
