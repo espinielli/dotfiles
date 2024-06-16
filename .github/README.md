@@ -32,9 +32,9 @@ The following is expecially needed for a dotfiles repo
   EOF > $HOME/.gitignore_global
   ```
 * and add it to the global git config in $HOME
-
-        $ git config --global core.excludesfile $HOME/.gitignore_global
-
+  ```shell
+  $ git config --global core.excludesfile $HOME/.gitignore_global
+  ```
 
 ## Initial Setup: put your dotfiles under git ##
 I got inspired by [this post][worktreeblog] (no more reacheable) and this is how I did it:
