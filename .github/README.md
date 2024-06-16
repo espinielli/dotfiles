@@ -40,46 +40,45 @@ The following is expecially needed for a dotfiles repo
 I got inspired by [this post][worktreeblog] (no more reacheable) and this is how I did it:
 
 * create your git repo
-
-        $ cd $HOME
-        $ mkdir -p $HOME/.dotfiles
-
+  ```shell
+  $ cd $HOME
+  $ mkdir -p $HOME/.dotfiles
+  ```
 * make an alias, `home`, to manage this special repo
-
-        $ echo "alias home='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> $HOME/.zshrc
-        $ source $HOME/.zshrc
-
+  ```shell
+  $ echo "alias home='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> $HOME/.zshrc
+  $ source $HOME/.zshrc
+  ```
 * init the repo and start adding dotfiles
+  ```shell
+  $ home init
+  $ home add $HOME/.bash_profile $HOME/.bashrc $HOME/.bash_aliases
+  $ home commit -m 'Initial commit'
+  $ home remote add origin git@github.com:espinielli/.dotfiles
+  $ home push origin master
+  ```
 
-        $ home init
-        $ home add $HOME/.bash_profile $HOME/.bashrc $HOME/.bash_aliases
-        $ home commit -m 'Initial commit'
-        $ home remote add origin git@github.com:espinielli/.dotfiles
-        $ home push origin master
-
-
-## <a id="cloning"> set it up on a second/third/... machine ##
+## set it up on a second/third/... machine
 Now to use (and contribute) from a different machine
 
 * backup your existing dot files
 * clone the repo
-
-        $ cd $HOME
-        $ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
-
+  ```shell
+  $ cd $HOME
+  $ git clone https://github.com/espinielli/dotfiles.git /tmp/dotfiles.git
+  ```
 * move git repo configuration info in `$HOME/.dotfiles/`
-
-        $ mv /tmp/dotfiles.git/.git $HOME/.dotfiles/
-
+  ```shell
+  $ mv /tmp/dotfiles.git/.git $HOME/.dotfiles/
+  ```
 * enable `dotglob` and copy the dot files to `$HOME`
-
-        $ setopt -s dotglob
-        $ mv -i /tmp/dotfiles.git/* $HOME
-
+  ```shell
+  $ setopt -s dotglob
+  $ mv -i /tmp/dotfiles.git/* $HOME
+  ```
 Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
 
 Use `home ls-files` to list the version controlled dotfiles.
-
 
 
 
