@@ -81,6 +81,11 @@ Finally properly configure what to ignore, see the ['ignoring' section](#ignorin
 Use `home ls-files` to list the version controlled dotfiles.
 
 
+## Install applications
+Execute
+```shell
+$HOME/.github/brew.sh
+```
 
 # References #
 
