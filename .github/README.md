@@ -21,17 +21,15 @@ The following is expecially needed for a dotfiles repo
 
 * setup what to ignore:
   ```shell
-        $ cd $HOME
-        $ cat <<EOF
-        # ignore all by default
-        #/*
-        # specific ignores
-        .DS_Store
-        *.pyc
-        node_modules
-        # do not ignore:
-        !bin/
-        EOF > $HOME/.gitignore_global
+  $ cd $HOME
+  $ cat <<EOF
+  # specific ignores
+  .DS_Store
+  *.pyc
+  node_modules
+  # do not ignore:
+  !bin/
+  EOF > $HOME/.gitignore_global
   ```
 * and add it to the global git config in $HOME
 
