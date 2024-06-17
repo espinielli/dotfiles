@@ -1,6 +1,3 @@
-# vim:syntax=zsh
-# vim:filetype=zsh
-
 #
 # Executes commands at login before zshrc.
 #
@@ -26,3 +23,24 @@ path=(
   /usr/local/{bin,sbin}
   $path
 )
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# silence zsh switch
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+export PATH="$(qvm path add)"
+
+# Created by `pipx` on 2024-06-12 13:28:56
+export PATH="$PATH:/Users/spi/.local/bin"
