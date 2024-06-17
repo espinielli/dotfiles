@@ -3,6 +3,7 @@
 Everything[^1] is under version control in GitHub and have done so to be able to install other machines in a reproducible way.
 
 The software I need is typically installed via [Homebrew][brew], so it is quite MacOS oriented.
+Installing from Apple Store could benefit from [mas](https://github.com/mas-cli/mas) but I haven't tried yet.
 
 I store the instructions to do set my machines up in various files/scripts similarly to what
 [Mathias Bynens][mathias] did.

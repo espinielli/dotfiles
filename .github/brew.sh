@@ -6,6 +6,8 @@
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 
+brew install mas
+
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
@@ -45,6 +47,7 @@ brew install duckdb
 brew install sqlite
 
 # tools
+brew install arc # the Arc browser
 brew install yt-dlp
 brew install vlc
 brew install exiftool
