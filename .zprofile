@@ -1,3 +1,6 @@
+# vim:syntax=sh
+# vim:filetype=sh
+
 #
 # Executes commands at login before zshrc.
 #
@@ -37,8 +40,6 @@ fi
 
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
-# silence zsh switch
-export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export PATH="$(qvm path add)"
 
