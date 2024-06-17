@@ -74,7 +74,8 @@ Now to use (and contribute) from a different machine
   ```
 * enable `dotglob` and copy the dot files to `$HOME`
   ```shell
-  $ setopt -s dotglob
+  $ setopt -s dotglob # in bash
+  $ setopt globdots # in zsh
   $ mv -i /tmp/dotfiles.git/* $HOME
   ```
 Finally properly configure what to ignore, see the ['ignoring' section](#ignoring) above.
