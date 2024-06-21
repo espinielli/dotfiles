@@ -71,21 +71,17 @@ bindkey "[A" history-search-backward              # up arrow
 #------------------------------------------------------
 # from https://github.com/xoolive/dotfiles/blob/main/.zsh.d/12_bindkey.zsh
 weather () {
-    brussels='50.85,4.35'
-    city1='Brussels'
-    city2='Verona'
-    city3='Massa'
-    latlon=$brussels
-    echo
+    # brussels='50.85,4.35'
+    # latlon=$brussels
     #curl -X GET "https://api.pirateweather.net/forecast/$PIRATE_WEATHER_KEY/$latlon" -H "accept: */*" 
-    curl 'wttr.in/Brussels?m&format=Moon+phase:+%m'
+
     echo
-    curl 'wttr.in/Brussels?m&format=%l+%c%05+%t+%h,+%w'
+    curl 'wttr.in/Brussels?m&format=Moon+phase:+%m\n'
+    curl 'wttr.in/Brussels?m&format=%l+%09%c+%t+%h,+%w\n'
+    curl 'wttr.in/Verona?m&format=%l+%09%09%c+%t+%h,+%w\n'
+    curl 'wttr.in/Marina%20di%20Massa?m&format=%l+%c+%t+%h,+%w\n'
     echo
-    curl 'wttr.in/Verona?m&format=%l%09+%c%05+%t+%h,+%w'
-    echo
-    curl 'wttr.in/Massa?m&format=%l%09+%c%05+%t+%h,+%w'
-    echo; echo; zle redisplay
+    zle redisplay
 }
 zle -N weather
 bindkey "[20~" weather  # F9
