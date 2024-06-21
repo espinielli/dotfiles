@@ -27,21 +27,15 @@ path=(
   $path
 )
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+# -- homebrew --
+if [[ $(uname -s) = "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
-
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
+# Quarto setup
 export PATH="$(qvm path add)"
-
-# Created by `pipx` on 2024-06-12 13:28:56
-export PATH="$PATH:/Users/spi/.local/bin"

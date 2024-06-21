@@ -108,6 +108,9 @@ fi
 unset __mamba_setup
 # <<< mamba initialize <<<
 
+# espinielli addition: really needed?
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+
 # rust
 . "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
 

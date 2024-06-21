@@ -15,10 +15,3 @@ export SYSTEM=$(uname -s)
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
-
-# Home-made scripts
-export PATH=$PATH:${HOME}/.bin
-
-# espinielli addition: really needed?
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
-. "$HOME/.cargo/env"
