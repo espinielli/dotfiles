@@ -44,10 +44,10 @@ A nice diagram and possible generalization for different shells comes from
 and [its companion repo](https://heptapod.host/flowblok/shell-startup).
 
 The possible paths are:
-* ${\mathbf{\color{red}\longrightarrow}}$: login, interactive
-* ORANGE: login, non-interactive
-* GREEN: non-login, interactive
-* BLUE: non-login, non-interactive
+* ${\mathbf{\color{red}RED \longrightarrow}}$: login, interactive
+* ${\mathbf{\color{orange}ORANGE \longrightarrow}}$: login, non-interactive
+* ${\mathbf{\color{green}GREEN \longrightarrow}}$: non-login, interactive
+* ${\mathbf{\conon-interaBLUE \longrightarrow}}$: non-login, non-interactive
 
 ![zsh startup](zsh_dotfiles.png)
 
