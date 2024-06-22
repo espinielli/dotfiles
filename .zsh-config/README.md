@@ -44,7 +44,7 @@ A nice diagram and possible generalization for different shells comes from
 and [its companion repo](https://heptapod.host/flowblok/shell-startup).
 
 The possible paths are:
-* RED: login, interactive
+* $${\color{red}\longrightarrow}$$: login, interactive
 * ORANGE: login, non-interactive
 * GREEN: non-login, interactive
 * BLUE: non-login, non-interactive
