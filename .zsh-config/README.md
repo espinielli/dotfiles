@@ -47,7 +47,7 @@ The possible paths are:
 * ${\mathbf{\color{red}RED \longrightarrow}}$: login, interactive
 * ${\mathbf{\color{orange}ORANGE \longrightarrow}}$: login, non-interactive
 * ${\mathbf{\color{green}GREEN \longrightarrow}}$: non-login, interactive
-* ${\mathbf{\conon-interaBLUE \longrightarrow}}$: non-login, non-interactive
+* ${\mathbf{\color{blue}BLUE \longrightarrow}}$: non-login, non-interactive
 
 ![zsh startup](zsh_dotfiles.png)
 
