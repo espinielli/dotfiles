@@ -91,7 +91,7 @@ $HOME/.github/brew.sh
 
 # Shell configuration
 
-See [`.zsh-config`](.zsh-config).
+See [`.zsh-config`](../.zsh-config).
 
 # References #
 
