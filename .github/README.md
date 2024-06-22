@@ -89,6 +89,10 @@ Execute
 $HOME/.github/brew.sh
 ```
 
+# Shell configuration
+
+See [.zsh-config/](.zsh-config/)
+
 # References #
 
 1. [Detached work tree][worktreeblog] approach.
