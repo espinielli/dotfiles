@@ -1,0 +1,80 @@
+// adapted from 
+// https://heptapod.host/flowblok/shell-startup/-/blob/branch/default/diagram/impl-actual.dot
+digraph {
+//    {rank=same;
+//    zsh
+//    }
+
+    zsh_login [label="login"]
+    zsh_non_login [label="non-login"]
+    zsh_interactive [label="interactive"]
+    zsh_non_interactive [label="non-interactive"]
+
+    zsh_running [label="running..."]
+
+
+    etc_zshenv [label="/etc/zshenv"]
+    etc_zprofile [label="/etc/zprofile"]
+    etc_zshrc [label="/etc/zshrc"]
+
+    dot_zlogin [label="~/.zlogin"]
+    dot_zlogout [label="~/.zlogout"]
+    {rank=same;
+    dot_zprofile [label="~/.zprofile"]
+    dot_zshrc [label="~/.zshrc"]
+    }
+    dot_zshenv [label="~/.zshenv"]
+
+    // ZSH
+
+    // PATH: zsh, login, interactive
+    edge [color=red, style=solid]
+    zsh -> zsh_login
+    zsh_login -> zsh_interactive
+
+    zsh_interactive -> etc_zshenv
+    etc_zshenv -> dot_zshenv
+    dot_zshenv -> dot_zprofile
+    dot_zprofile -> dot_zshrc
+    dot_zshrc -> dot_zlogin
+
+    dot_zlogin -> zsh_running
+
+    zsh_running -> dot_zlogout
+
+    // PATH: zsh, login, non-interactive
+    edge [color=orange, style=solid]
+    zsh -> zsh_login
+    zsh_login -> zsh_non_interactive
+
+    zsh_non_interactive -> etc_zshenv
+    etc_zshenv -> dot_zshenv
+    dot_zshenv -> dot_zprofile
+    dot_zprofile -> dot_zlogin
+
+    dot_zlogin -> zsh_running
+
+    zsh_running -> dot_zlogout
+
+    // PATH: zsh, non-login, interactive
+    edge [color=green, style=solid]
+    zsh -> zsh_non_login
+    zsh_non_login -> zsh_interactive
+
+    zsh_interactive -> etc_zshenv
+    etc_zshenv -> dot_zshenv
+    dot_zshenv -> dot_zshrc
+
+    dot_zshrc -> zsh_running
+
+    // PATH: zsh, non-login, non-interactive
+    edge [color=blue, style=solid]
+    zsh -> zsh_non_login
+    zsh_non_login -> zsh_non_interactive
+
+    zsh_non_interactive -> etc_zshenv
+    etc_zshenv -> dot_zshenv
+
+    dot_zshenv -> zsh_running
+
+}
