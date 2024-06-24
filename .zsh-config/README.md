@@ -50,9 +50,7 @@ The possible paths are:
 * ${\mathbf{\color{blue}BLUE \longrightarrow}}$: non-login, non-interactive
 
 
-![Alt text](https://g.gravizo.com/source/<custom_mark>?<url_source_url_encoded>
-
-![Alt text](https://g.gravizo.com/source/custom_mark10?https%3A%2F%2Fraw.githubusercontent.com%2Fespinielli%2Fdotfiles%2F.zsh-config%2Fmaster%2FREADME.md)
+![Alt text](https://g.gravizo.com/source/custom_mark10?https%3A%2F%2Fraw.githubusercontent.com%2Fespinielli%2Fdotfiles%2Fmaster%2F.zsh-config%2FREADME.md)
 <details> 
 <summary></summary>
 custom_mark10
