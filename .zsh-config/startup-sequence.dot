@@ -5,10 +5,6 @@ digraph {
 //    zsh
 //    }
 
-    zsh_login [label="login"]
-    zsh_non_login [label="non-login"]
-    zsh_interactive [label="interactive"]
-    zsh_non_interactive [label="non-interactive"]
 
     zsh_running [label="running..."]
 
@@ -16,12 +12,15 @@ digraph {
     etc_zshenv [label="/etc/zshenv"]
     etc_zprofile [label="/etc/zprofile"]
     etc_zshrc [label="/etc/zshrc"]
+    etc_zlogin [label="/etc/zlogin"]
 
     dot_zlogin [label="~/.zlogin"]
     dot_zlogout [label="~/.zlogout"]
-    {rank=same;
     dot_zprofile [label="~/.zprofile"]
     dot_zshrc [label="~/.zshrc"]
+    {rank=same;
+    dot_zprofile [label="~/.zprofile"]
+    etc_zshrc [label="/etc/zshrc"]
     }
     dot_zshenv [label="~/.zshenv"]
 
@@ -29,14 +28,15 @@ digraph {
 
     // PATH: zsh, login, interactive
     edge [color=red, style=solid]
-    zsh -> zsh_login
-    zsh_login -> zsh_interactive
+    zsh -> etc_zshenv
 
-    zsh_interactive -> etc_zshenv
     etc_zshenv -> dot_zshenv
-    dot_zshenv -> dot_zprofile
-    dot_zprofile -> dot_zshrc
-    dot_zshrc -> dot_zlogin
+    dot_zshenv -> etc_zprofile
+    etc_zprofile -> dot_zprofile
+    dot_zprofile -> etc_zshrc
+    etc_zshrc -> dot_zshrc
+    dot_zshrc -> etc_zlogin
+    etc_zlogin -> dot_zlogin
 
     dot_zlogin -> zsh_running
 
@@ -44,13 +44,13 @@ digraph {
 
     // PATH: zsh, login, non-interactive
     edge [color=orange, style=solid]
-    zsh -> zsh_login
-    zsh_login -> zsh_non_interactive
+    zsh -> etc_zshenv
 
-    zsh_non_interactive -> etc_zshenv
     etc_zshenv -> dot_zshenv
-    dot_zshenv -> dot_zprofile
-    dot_zprofile -> dot_zlogin
+    dot_zshenv -> etc_zprofile
+    etc_zprofile -> dot_zprofile
+    dot_zprofile -> etc_zlogin
+    etc_zlogin -> dot_zlogin
 
     dot_zlogin -> zsh_running
 
@@ -58,23 +58,19 @@ digraph {
 
     // PATH: zsh, non-login, interactive
     edge [color=green, style=solid]
-    zsh -> zsh_non_login
-    zsh_non_login -> zsh_interactive
+    zsh -> etc_zshenv
 
-    zsh_interactive -> etc_zshenv
     etc_zshenv -> dot_zshenv
-    dot_zshenv -> dot_zshrc
+    dot_zshenv -> etc_zshrc
+    etc_zshrc -> dot_zshrc
 
     dot_zshrc -> zsh_running
 
     // PATH: zsh, non-login, non-interactive
     edge [color=blue, style=solid]
-    zsh -> zsh_non_login
-    zsh_non_login -> zsh_non_interactive
+    zsh -> etc_zshenv
 
-    zsh_non_interactive -> etc_zshenv
     etc_zshenv -> dot_zshenv
-
     dot_zshenv -> zsh_running
 
 }
