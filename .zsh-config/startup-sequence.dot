@@ -1,5 +1,6 @@
 // adapted from 
 // https://heptapod.host/flowblok/shell-startup/-/blob/branch/default/diagram/impl-actual.dot
+// Editing/PNG production via https://dreampuf.github.io/GraphvizOnline/
 digraph {
 //    {rank=same;
 //    zsh
@@ -43,7 +44,7 @@ digraph {
     zsh_running -> dot_zlogout
 
     // PATH: zsh, login, non-interactive
-    edge [color=orange, style=solid]
+    edge [color=cyan, style=solid]
     zsh -> etc_zshenv
 
     etc_zshenv -> dot_zshenv

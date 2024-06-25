@@ -1,3 +1,4 @@
+// Editing/PNG production via https://dreampuf.github.io/GraphvizOnline/
 digraph {
   rankdir=LR
   node [shape=plaintext]
@@ -16,7 +17,7 @@ digraph {
       <tr><td port="i4">&nbsp;</td></tr>
       </table>>]
     key:i1:e -> key2:i1:w [color=red]
-    key:i2:e -> key2:i2:w [color=orange]
+    key:i2:e -> key2:i2:w [color=cyan]
     key:i3:e -> key2:i3:w [color=green]
     key:i4:e -> key2:i4:w [color=blue]
   }
