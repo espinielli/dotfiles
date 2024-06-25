@@ -34,7 +34,7 @@ $ eval `/usr/libexec/path_helper -s`
 ```
 that sets and exports the system-wide `PATH` and `MANPATH`
 
-
+<img src="zsh_dotfiles.png" width="100" height="100">
 
 [zshug]: <https://zsh.sourceforge.io/Guide/> "zsh user Guide"
 
