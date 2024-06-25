@@ -43,13 +43,11 @@ and [its companion repo](https://heptapod.host/flowblok/shell-startup).
 
 The possible paths are:
 * ${\mathbf{\color{red}RED \longrightarrow}}$: login, interactive
-* ${\mathbf{\color{orange}ORANGE \longrightarrow}}$: login, non-interactive
+* ${\mathbf{\color{cyan}CYAN \longrightarrow}}$: login, non-interactive
 * ${\mathbf{\color{green}GREEN \longrightarrow}}$: non-login, interactive
 * ${\mathbf{\color{blue}BLUE \longrightarrow}}$: non-login, non-interactive
 
-<img src="zsh_dotfiles.png" width="50%" height="50%">
-
-![zsh startup](zsh_dotfiles.png)
+<img src="zsh_dotfiles.png" width="50%" height="50%" alt="zsh startup">
 
 
 # Secretes
