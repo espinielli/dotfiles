@@ -34,8 +34,6 @@ $ eval `/usr/libexec/path_helper -s`
 ```
 that sets and exports the system-wide `PATH` and `MANPATH`
 
-<img src="zsh_dotfiles.png" width="100" height="100">
-
 [zshug]: <https://zsh.sourceforge.io/Guide/> "zsh user Guide"
 
 # Diagram and possible generalization
@@ -48,6 +46,8 @@ The possible paths are:
 * ${\mathbf{\color{orange}ORANGE \longrightarrow}}$: login, non-interactive
 * ${\mathbf{\color{green}GREEN \longrightarrow}}$: non-login, interactive
 * ${\mathbf{\color{blue}BLUE \longrightarrow}}$: non-login, non-interactive
+
+<img src="zsh_dotfiles.png" width="50%" height="50%">
 
 ![zsh startup](zsh_dotfiles.png)
 
