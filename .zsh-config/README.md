@@ -37,9 +37,6 @@ that sets and exports the system-wide `PATH` and `MANPATH`
 [zshug]: <https://zsh.sourceforge.io/Guide/> "zsh user Guide"
 
 # Diagram and possible generalization
-A nice diagram and possible generalization for different shells comes from
-[this blog post](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html)
-and [its companion repo](https://heptapod.host/flowblok/shell-startup).
 
 The possible paths are:
 * ${\mathbf{\color{red}RED \longrightarrow}}$: login, interactive
@@ -48,6 +45,10 @@ The possible paths are:
 * ${\mathbf{\color{blue}BLUE \longrightarrow}}$: non-login, non-interactive
 
 <img src="zsh_dotfiles.png" width="50%" height="50%" alt="zsh startup">
+
+The above diagram has been _inspired_ by [this blog post](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html)
+and [its companion repo](https://heptapod.host/flowblok/shell-startup).
+The post describes an interesting setup for covering multiple shell types.
 
 
 # Secretes

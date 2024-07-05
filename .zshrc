@@ -15,9 +15,7 @@ zmodload zsh/zprof
 
 
 export SCRIPTS=${HOME}/scripts
-
 export ZSHCONFIG=${ZDOTDIR:-$HOME}/.zsh-config
-
 ZSH_INIT=${ZSHCONFIG}/_init.sh
 
 if [[ -s ${ZSH_INIT} ]]; then

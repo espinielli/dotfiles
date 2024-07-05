@@ -52,6 +52,8 @@ brew install yt-dlp
 brew install vlc
 brew install exiftool
 brew install transmission-cli
+# minio for OSN
+brew install minio/stable/mc
 
 # Python echosystem
 brew install pipx
