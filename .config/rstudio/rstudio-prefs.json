@@ -46,5 +46,6 @@
     },
     "relative_line_numbers": true,
     "show_invisibles": true,
-    "editor_scroll_multiplier": 80
+    "editor_scroll_multiplier": 80,
+    "font_size_points": 11
 }

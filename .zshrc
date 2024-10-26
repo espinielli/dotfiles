@@ -72,26 +72,13 @@ if [ -d ~/.private ]; then
     done
 fi
 
-#========== MESA and astronomy ===========
-# set MESA_DIR to be the directory to which you downloaded MESA
-# The directory shown is only an example and must be modified for your particular system.
-export MESA_DIR=/Users/spi/repos/mesa-r22.11.1
-
-# set OMP_NUM_THREADS to be the number of cores on your machine
-export OMP_NUM_THREADS=8
-
-# you should have done this when you set up the MESA SDK
-# The directory shown is only an example and must be modified for your particular system.
-#export MESASDK_ROOT=/Applications/mesasdk
-#source $MESASDK_ROOT/bin/mesasdk_init.sh
-#=========================================
-
 
 export RLWRAP_EDITOR=vim
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -121,3 +108,8 @@ export PATH="$(qvm path add)"
 
 # Created by `pipx` on 2024-06-12 13:28:56
 export PATH="$PATH:/Users/spi/.local/bin"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/mc mc
+
+[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.

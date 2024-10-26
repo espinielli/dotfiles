@@ -1,6 +1,5 @@
-# from https://github.com/rtomayko/dotfiles
 # do not bell on tab-completion
-set bell-style bell
+set bell-style visible
 
 set expand-tilde off
 set input-meta off
