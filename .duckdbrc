@@ -1,0 +1,12 @@
+-- duck
+.prompt '🟡◗ '
+-- .timer on
+-- .changes on
+.headers on
+.highlight on
+.echo off
+LOAD 'autocomplete';
+LOAD 'fts';
+LOAD 'httpfs';
+LOAD 'json';
+LOAD 'parquet';

@@ -125,3 +125,5 @@ alias dok-rmi-none='docker rmi $(docker images | grep "^<none>" | sed -e "s/[ \t
 ## --- PRC Data Challenge ---
 alias dc24='just --justfile ~/repos/prc_data_challenge/justfile'
 
+## --- OSN stuff ---
+alias osn='just --justfile ~/repos/osn-playground/justfile'

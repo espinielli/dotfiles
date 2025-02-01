@@ -28,7 +28,6 @@
             "Connections",
             "Build",
             "VCS",
-            "Tutorial",
             "Presentation"
         ],
         "tabSet2": [
@@ -39,7 +38,9 @@
             "Viewer",
             "Presentations"
         ],
-        "hiddenTabSet": [],
+        "hiddenTabSet": [
+            "Tutorial"
+        ],
         "console_left_on_top": false,
         "console_right_on_top": true,
         "additional_source_columns": 0
@@ -47,5 +48,6 @@
     "relative_line_numbers": true,
     "show_invisibles": true,
     "editor_scroll_multiplier": 80,
-    "font_size_points": 11
+    "font_size_points": 11,
+    "show_terminal_tab": false
 }
