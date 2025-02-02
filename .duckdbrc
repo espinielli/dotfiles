@@ -1,5 +1,6 @@
 -- duck
 .prompt '🟡◗ '
+-- .prompt '°> '
 -- .timer on
 -- .changes on
 .headers on
