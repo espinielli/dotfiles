@@ -43,6 +43,28 @@ if (interactive()) {
   # TODO: check for pkg existence
   options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
 
+  ##------- multiple ways of printing data to suit whatever kind of user you happen to be today
+  # install.packages(
+  #   "paint",
+  #   repos = c(mm = "https://milesmcbain.r-universe.dev", getOption("repos")))
+  library(flippingtables)
+  register_flips(
+    printer_fns = list(
+      paint::paint, # a pretty good option if I do say so myself.
+      function(x) default_print(x, .args = list(print_arg(c("n", "max"), 100))), # a long format, uses .args see help(default_print)
+      function(x) withr::with_options(list(width = 300), default_print(x)) # a wide format
+    ),
+    printed_classes = list(
+      print_override(class = "tbl", pkg_namespace = "pillar"),
+      print_override(class = "data.frame", pkg_namespace = "base"),
+      print_override(class = "data.table", pkg_namespace = "data.table")
+    )
+  )
+  flip_on()
+  ## RStudio shortcuts
+  if (requireNamespace("shrtcts", quietly = TRUE)) {
+    shrtcts::add_rstudio_shortcuts(set_keyboard_shortcuts = TRUE)
+  }
   ##--------- shortcuts ------------
   # taken from https://github.com/jimhester/dotfiles/blob/master/R/Rprofile
   # Assign shortcuts to a hidden environment, so they don't show up in ls()
@@ -150,7 +172,7 @@ if (interactive()) {
   auto.loads <- c()
   invisible(sapply(auto.loads, sshhh))
   rm(auto.loads)
-  
+
   ##----- libraries ----
   library(fcuk)
 }
