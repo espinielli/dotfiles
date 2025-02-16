@@ -100,7 +100,7 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlightin
 . "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
 
 # Go
-PATH=$PATH:/usr/local/go/bin
+PATH=$PATH:$HOME/go/bin
 
 # quarto version manager
 export PATH="$(qvm path add)"
