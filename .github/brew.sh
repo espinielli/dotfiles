@@ -13,7 +13,7 @@ brew install coreutils
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 
 # essentials
-brew install wezterm # a better terminal (or kitty? https://sw.kovidgoyal.net/kitty/)
+brew install --cask ghostty
 brew install tmux
 brew install bat  # https://github.com/sharkdp/bat (replace cat)
 brew install git  # version on MacOs is oldish
@@ -39,6 +39,7 @@ brew install micromamba
 brew install podman
 brew install pocketbase
 brew install tealdeer  # tldr (in Rust)
+brew install btop
 
 # DBs & tools
 brew install ghostscript
@@ -79,7 +80,17 @@ brew install xoolive/homebrew/jet1090
 # Rust
 brew install rustup-init
 
+## Taps
+echo "Tapping Brew..."
+brew tap FelixKratz/formulae
+brew tap koekeishiya/formulae
 
+## Taps
+echo "Tapping Brew..."
+brew tap FelixKratz/formulae
+brew tap koekeishiya/formulae
+brew install skhd
+brew install sketchybar
 
 # Cask installations
 brew install --cack alfred
@@ -87,3 +98,16 @@ brew install --cask calibre
 brew install --cask transmission
 brew install --cask zotero
 brew install --cask zoom
+
+# Fonts
+brew install --cask font-fira-code
+brew install --cask font-monaspace
+
+# MacOS settings
+
+
+# Start Services
+echo "Starting Services (grant permissions)..."
+brew services start skhd
+brew services start sketchybar
+
