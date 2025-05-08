@@ -13,7 +13,6 @@
     "strip_trailing_whitespace": true,
     "insert_native_pipe_operator": true,
     "git_diff_ignore_whitespace": true,
-    "restore_last_project": false,
     "source_with_echo": true,
     "panes": {
         "quadrants": [
@@ -48,6 +47,11 @@
     "relative_line_numbers": true,
     "show_invisibles": true,
     "editor_scroll_multiplier": 80,
-    "font_size_points": 11,
-    "show_terminal_tab": false
+    "font_size_points": 12,
+    "auto_append_newline": true,
+    "reformat_on_save": true,
+    "code_formatter": "external",
+    "code_formatter_external_command": "~/.local/bin/air format",
+    "new_proj_git_init": true,
+    "spelling_dictionary_language": "en_GB"
 }

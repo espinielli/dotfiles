@@ -18,6 +18,8 @@ alias mm=micromamba
 alias gst='git status'
 alias gss='git status --short'
 alias gr='git remote'
+alias rm-untracked='git stash save -u && git stash drop "stash@{0}"'
+
 # Press Ctrl+g to show your git status
 bindkey -s '^g' 'git status --short^M'
 

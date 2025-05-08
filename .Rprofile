@@ -41,7 +41,7 @@ if (interactive()) {
     blogdown.use.rmd = TRUE
   )
   # TODO: check for pkg existence
-  options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
+  # options(styler.addins_style_transformer = "grkstyle::grk_style_transformer()")
 
   ##------- multiple ways of printing data to suit whatever kind of user you happen to be today
   # install.packages(
