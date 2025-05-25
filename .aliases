@@ -129,3 +129,7 @@ alias dc24='just --justfile ~/repos/prc_data_challenge/justfile'
 
 ## --- OSN stuff ---
 alias osn='just --justfile ~/repos/osn-playground/justfile'
+
+## tools
+alias r="radian"
+

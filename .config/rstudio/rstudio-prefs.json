@@ -52,6 +52,5 @@
     "reformat_on_save": true,
     "code_formatter": "external",
     "code_formatter_external_command": "~/.local/bin/air format",
-    "new_proj_git_init": true,
     "spelling_dictionary_language": "en_GB"
 }
