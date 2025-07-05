@@ -75,14 +75,6 @@ function handle-multi-arguments(){
 # /etc/paths.d/40-XQuartz
 export PATH=$PATH:/opt/X11/bin
 
-# /etc/paths.d/MacGPG2
-export PATH=$PATH:/usr/local/MacGPG2/bin
-
-#
-# GNU Core Utils
-# brew info coreutils
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-
 # scutil
 #
 alias sys.get.computername='scutil --get ComputerName'
@@ -123,4 +115,3 @@ alias sys.pkg.list='pkgutil --pkgs'
 
 # show CPU info
 alias sys.cpu='sysctl -n machdep.cpu.brand_string'
-
