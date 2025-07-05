@@ -133,3 +133,5 @@ alias osn='just --justfile ~/repos/osn-playground/justfile'
 ## tools
 alias r="radian"
 
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
