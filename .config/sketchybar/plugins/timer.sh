@@ -63,8 +63,6 @@ if [ "$SENDER" = "mouse.clicked" ]; then
         sketchybar --set "$NAME" icon=""
         stop_countdown
     elif [ "$BUTTON" = "left" ]; then
-        echo "inside button left" >> /tmp/cucu
-        echo "$(echo $INFO | jq '.modifier')" >> /tmp/cucu
         if $(echo $INFO | jq '.modifier == "alt"'); then
             sketchybar --set "$NAME" icon=""
             stop_countdown
