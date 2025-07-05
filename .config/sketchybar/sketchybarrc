@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items" # Directory where the items are configured
+
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+source "$CONFIG_DIR/icons.sh"
+source "$CONFIG_DIR/settings.sh"
+
+#source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+
+sketchybar --bar "${bar[@]}" --default "${default[@]}"
+
+
+##### Adding Left Items #####
+
+
+##### Adding Center Items #####
+
+
+
+##### Adding Right Items #####
+source "$ITEM_DIR/datetime.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/brew.sh"
+source "$ITEM_DIR/weather.sh"
+source "$ITEM_DIR/timer.sh"
+
+sketchybar --hotload on
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
