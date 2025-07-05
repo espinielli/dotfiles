@@ -1,0 +1,13 @@
+# ghostty +show-config --default --docs
+# ghostty +list-themes
+
+font-family                    = "Monaspace Neon"
+font-feature                   = liga
+font-feature                   = kern
+
+# Look and Feel
+adjust-cursor-thickness        = 3
+adjust-underline-position      = 3
+
+theme = "Builtin Solarized Light"
+macos-titlebar-style = tabs
