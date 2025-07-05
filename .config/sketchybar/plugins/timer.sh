@@ -55,17 +55,24 @@ if [[ "$#" -eq 1 && "$1" =~ ^[0-9]+$ ]]; then
 fi
 
 # Handle SketchyBar mouse events
+echo "EVENT=$SENDER INFO=$INFO" >> /tmp/cucu
 if [ "$SENDER" = "mouse.clicked" ]; then
-    case "$BUTTON" in
-        "left")
-            sketchybar --set "$NAME" icon=""
-            start_countdown "$NAME" "$DEFAULT_DURATION"
-            ;;
-        "right")
+    echo "inside mouse.clicked" >> /tmp/cucu
+    # stop with right-click or option-click
+    if [ "$BUTTON" = "right" ]; then
+        sketchybar --set "$NAME" icon=""
+        stop_countdown
+    elif [ "$BUTTON" = "left" ]; then
+        echo "inside button left" >> /tmp/cucu
+        echo "$(echo $INFO | jq '.modifier')" >> /tmp/cucu
+        if $(echo $INFO | jq '.modifier == "alt"'); then
             sketchybar --set "$NAME" icon=""
             stop_countdown
-            ;;
-    esac
+        else
+            sketchybar --set "$NAME" icon=""
+            start_countdown "$NAME" "$DEFAULT_DURATION"
+        fi
+    fi
 fi
 
 case "$SENDER" in
