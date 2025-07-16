@@ -26,9 +26,9 @@ sketchybar --bar "${bar[@]}" --default "${default[@]}"
 
 ##### Adding Right Items #####
 source "$ITEM_DIR/datetime.sh"
+source "$ITEM_DIR/brew.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
-source "$ITEM_DIR/brew.sh"
 source "$ITEM_DIR/weather.sh"
 source "$ITEM_DIR/timer.sh"
 
