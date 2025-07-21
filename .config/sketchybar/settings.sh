@@ -8,7 +8,7 @@ FONT="Hack Nerd Font"
 PADDINGS=3 # All paddings use this value (icon, label, background)
 
 bar=(
-    height=35
+    height=31
     color=$BAR_COLOR
     border_color=$BAR_BORDER_COLOR
 )
