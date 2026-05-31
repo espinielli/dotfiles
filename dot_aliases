@@ -1,0 +1,76 @@
+# Easier navigation
+# inspired by https://github.com/mathiasbynens/dotfiles
+alias ..="cd .."
+
+#micromamba
+alias mm=micromamba
+
+# git aliases
+alias gst='git status'
+alias gss='git status --short'
+alias gr='git remote'
+alias rm-untracked='git stash save -u && git stash drop "stash@{0}"'
+alias nogit='git ls-files --exclude-standard -o'
+
+# Press Ctrl+g to show your git status
+bindkey -s '^g' 'git status --short^M'
+
+alias h="history"
+# not initial blank...then exit the shell
+alias incognito=' unset HISTFILE'
+
+# alias j="jobs"
+alias m="more"
+alias o="open"
+alias oo="open ."
+
+# OS X has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "$method"="lwp-request -m '$method'"
+done
+
+
+# ----------------------------------------------------------------------
+# ALIASES / FUNCTIONS
+# ----------------------------------------------------------------------
+alias h=history
+alias cls=clear
+
+# safe aliases
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+## --- PRC Data Challenge ---
+alias dc24='just --justfile ~/repos/prc_data_challenge_2024/prc_data_challenge_website_2024/justfile'
+
+## --- OSN stuff ---
+alias osn='just --justfile ~/repos/osn-playground/justfile'
+
+## tools
+alias r="radian"
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
