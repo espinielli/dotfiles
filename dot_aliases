@@ -13,7 +13,7 @@ alias rm-untracked='git stash save -u && git stash drop "stash@{0}"'
 alias nogit='git ls-files --exclude-standard -o'
 
 # Press Ctrl+g to show your git status
-bindkey -s '^g' 'git status --short^M'
+#bindkey -s '^g' 'git status --short^M'
 
 alias h="history"
 # not initial blank...then exit the shell
