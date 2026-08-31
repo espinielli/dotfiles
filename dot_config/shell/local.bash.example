@@ -2,4 +2,5 @@
 # Copy to ~/.config/shell/local.bash without adding it to chezmoi.
 # Put interactive, machine- or project-specific aliases here.
 
-# alias dc24='just --justfile "$HOME/repos/example/justfile"'
+# alias dc24='just --justfile "$HOME/repos/prc_data_challenge_2024/prc_data_challenge_website_2024/justfile"'
+# alias osn='just --justfile "$HOME/repos/osn-playground/justfile"'

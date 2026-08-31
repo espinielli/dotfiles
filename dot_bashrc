@@ -13,21 +13,27 @@ unset shell_file
 
 case "$(uname -s 2>/dev/null)" in
     Darwin)
-        bash_platform=darwin.bash
+        bash_platform=darwin
         ;;
     Linux)
-        bash_platform=linux.bash
+        bash_platform=linux
         ;;
     MINGW*|MSYS*|CYGWIN*)
-        bash_platform=git-bash.bash
+        bash_platform=git-bash
         ;;
     *)
         bash_platform=
         ;;
 esac
 
-if [[ -n "$bash_platform" && -r "$HOME/.config/shell/$bash_platform" ]]; then
-    source "$HOME/.config/shell/$bash_platform"
+if [[ -n "$bash_platform" ]]; then
+    for shell_file in \
+        "$HOME/.config/shell/aliases-$bash_platform.sh" \
+        "$HOME/.config/shell/$bash_platform.bash"
+    do
+        [[ -r "$shell_file" ]] && source "$shell_file"
+    done
+    unset shell_file
 fi
 unset bash_platform
 
