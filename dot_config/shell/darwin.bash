@@ -27,3 +27,5 @@ unquarantine() {
         xattr -r -d "$attribute" "$@"
     done
 }
+
+eval "$(~/.local/bin/mise activate bash)"
