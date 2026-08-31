@@ -1,0 +1,65 @@
+# shellcheck shell=sh
+# Environment shared by POSIX-compatible login shells.
+
+path_prepend() {
+    [ -d "$1" ] || return 0
+    case ":${PATH-}:" in
+        *":$1:"*) ;;
+        *) PATH="$1${PATH:+:$PATH}" ;;
+    esac
+}
+
+path_append() {
+    [ -d "$1" ] || return 0
+    case ":${PATH-}:" in
+        *":$1:"*) ;;
+        *) PATH="${PATH:+$PATH:}$1" ;;
+    esac
+}
+
+path_prepend "$HOME/.local/bin"
+path_prepend "$HOME/bin"
+path_append "$HOME/go/bin"
+export PATH
+
+export EDITOR="${EDITOR:-vi}"
+export VISUAL="${VISUAL:-$EDITOR}"
+export LANG="${LANG:-en_US.UTF-8}"
+export LESSCHARSET="${LESSCHARSET:-utf-8}"
+export MANPAGER="${MANPAGER:-less -X}"
+
+if [ -r "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+if command -v qvm >/dev/null 2>&1; then
+    qvm_path=$(qvm path add 2>/dev/null) && [ -n "$qvm_path" ] && PATH=$qvm_path
+    unset qvm_path
+    export PATH
+fi
+
+case "$(uname -s 2>/dev/null)" in
+    Darwin)
+        shell_platform=darwin
+        ;;
+    Linux)
+        shell_platform=linux
+        ;;
+    MINGW*|MSYS*|CYGWIN*)
+        shell_platform=git-bash
+        ;;
+    *)
+        shell_platform=
+        ;;
+esac
+
+if [ -n "$shell_platform" ] && [ -r "$HOME/.config/shell/$shell_platform.sh" ]; then
+    . "$HOME/.config/shell/$shell_platform.sh"
+fi
+unset shell_platform
+
+if [ -r "$HOME/.config/shell/local.profile" ]; then
+    . "$HOME/.config/shell/local.profile"
+fi
+
+unset -f path_prepend path_append 2>/dev/null || true

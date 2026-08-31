@@ -1,0 +1,5 @@
+# shellcheck shell=bash
+# Copy to ~/.config/shell/local.bash without adding it to chezmoi.
+# Put interactive, machine- or project-specific aliases here.
+
+# alias dc24='just --justfile "$HOME/repos/example/justfile"'

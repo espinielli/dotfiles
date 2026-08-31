@@ -1,0 +1,6 @@
+# shellcheck shell=sh
+# Copy to ~/.config/shell/local.profile without adding it to chezmoi.
+# Put machine-specific environment variables and PATH entries here.
+
+# path_prepend "$HOME/example/bin"
+# export EXAMPLE_TOKEN='load this from a secure credential manager instead'

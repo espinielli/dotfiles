@@ -1,7 +1,34 @@
 # shellcheck shell=bash
 
-# --- 1. INTERACTIVE GUARD ---
-# If not running interactively, don't do anything.
-[[ $- != *i* ]] && return
+[[ $- == *i* ]] || return
 
-[ -n "$PS1" ] && source ~/.bash_profile;
+for shell_file in \
+    "$HOME/.config/shell/aliases.sh" \
+    "$HOME/.config/shell/functions.sh" \
+    "$HOME/.config/shell/bash.bash"
+do
+    [[ -r "$shell_file" ]] && source "$shell_file"
+done
+unset shell_file
+
+case "$(uname -s 2>/dev/null)" in
+    Darwin)
+        bash_platform=darwin.bash
+        ;;
+    Linux)
+        bash_platform=linux.bash
+        ;;
+    MINGW*|MSYS*|CYGWIN*)
+        bash_platform=git-bash.bash
+        ;;
+    *)
+        bash_platform=
+        ;;
+esac
+
+if [[ -n "$bash_platform" && -r "$HOME/.config/shell/$bash_platform" ]]; then
+    source "$HOME/.config/shell/$bash_platform"
+fi
+unset bash_platform
+
+[[ -r "$HOME/.config/shell/local.bash" ]] && source "$HOME/.config/shell/local.bash"
