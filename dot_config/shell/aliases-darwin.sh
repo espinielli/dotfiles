@@ -3,6 +3,8 @@
 
 alias o='open'
 alias oo='open .'
+alias cz='chezmoi'
+alias cze='EDITOR="positron --wait" chezmoi edit'
 
 alias cleanup='find . -type f -name .DS_Store -print -delete'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'

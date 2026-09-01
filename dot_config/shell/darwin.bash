@@ -29,3 +29,7 @@ unquarantine() {
 }
 
 eval "$(~/.local/bin/mise activate bash)"
+export PATH="$PATH:$(qvm path add)"
+if command -v qvm >/dev/null 2>&1; then
+    export PATH="$PATH:$(qvm path add)"
+fi
